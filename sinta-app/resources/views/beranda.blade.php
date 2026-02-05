@@ -262,13 +262,13 @@
         if (tabName === 'scholar') source = 'googlescholar';
 
         const docs = currentFullData.documents.filter(d => d.source === source);
-        renderDocuments(docs);
+        renderDocuments(docs, source);
     }
 
     /**
     * RENDER TABEL PUBLIKASI
     */
-    function renderDocuments(docs) {
+    function renderDocuments(docs, source) {
         const tbody = document.getElementById('publicationTable');
 
         if (!docs || docs.length === 0) {
@@ -281,6 +281,11 @@
                 <td>
                     <strong>${d.title}</strong><br>
                     <small>${d.journal ?? ''}</small>
+                    ${
+                        (source === 'scopus' || source === 'garuda') && d.type
+                            ? `<br><br><small class="badge badge-orange">${d.type}</small>`
+                            : ''
+                    }
                 </td>
                 <td>${d.year ?? '-'}</td>
                 <td><span class="badge badge-blue">${d.cited ?? '0'}</span></td>

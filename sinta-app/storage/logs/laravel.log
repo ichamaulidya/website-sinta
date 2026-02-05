@@ -421,3 +421,39 @@
                     NPI AS npi,
                     NIDN AS nidn
                  from `dosens` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ridwan% or `NPI` LIKE %ridwan% or `NIDN` LIKE %ridwan% limit 10)  
+[2026-02-05 15:12:55] local.ERROR: Maximum execution time of 60 seconds exceeded {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Maximum execution time of 60 seconds exceeded at D:/SKRIPSI/project_sinta/website-sinta/sinta-app/app/Http/Controllers/SintaController.php:105)
+[stacktrace]
+#0 {main}
+"} 
+[2026-02-05 15:22:09] local.ERROR: Maximum execution time of 60 seconds exceeded {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Maximum execution time of 60 seconds exceeded at D:/SKRIPSI/project_sinta/website-sinta/sinta-app/app/Http/Controllers/SintaController.php:105)
+[stacktrace]
+#0 {main}
+"} 
+[2026-02-05 15:29:10] local.ERROR: Maximum execution time of 60 seconds exceeded {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Maximum execution time of 60 seconds exceeded at D:/SKRIPSI/project_sinta/website-sinta/sinta-app/app/Http/Controllers/SintaController.php:105)
+[stacktrace]
+#0 {main}
+"} 
+[2026-02-05 15:32:59] local.ERROR: Maximum execution time of 60 seconds exceeded {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Maximum execution time of 60 seconds exceeded at D:/SKRIPSI/project_sinta/website-sinta/sinta-app/app/Http/Controllers/SintaController.php:105)
+[stacktrace]
+#0 {main}
+"} 
+[2026-02-05 15:40:52] local.ERROR: Maximum execution time of 60 seconds exceeded {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Maximum execution time of 60 seconds exceeded at D:/SKRIPSI/project_sinta/website-sinta/sinta-app/app/Http/Controllers/SintaController.php:105)
+[stacktrace]
+#0 {main}
+"} 
+[2026-02-05 15:49:25] local.ERROR: Maximum execution time of 60 seconds exceeded {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Maximum execution time of 60 seconds exceeded at D:/SKRIPSI/project_sinta/website-sinta/sinta-app/app/Http/Controllers/SintaController.php:105)
+[stacktrace]
+#0 {main}
+"} 
+[2026-02-05 15:54:19] local.ERROR: Maximum execution time of 60 seconds exceeded {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Maximum execution time of 60 seconds exceeded at D:/SKRIPSI/project_sinta/website-sinta/sinta-app/app/Http/Controllers/SintaController.php:105)
+[stacktrace]
+#0 {main}
+"} 
+[2026-02-05 16:03:47] local.ERROR: Maximum execution time of 60 seconds exceeded {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Maximum execution time of 60 seconds exceeded at D:/SKRIPSI/project_sinta/website-sinta/sinta-app/app/Http/Controllers/SintaController.php:105)
+[stacktrace]
+#0 {main}
+"} 
+[2026-02-05 16:05:59] local.ERROR: Maximum execution time of 60 seconds exceeded {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Maximum execution time of 60 seconds exceeded at D:/SKRIPSI/project_sinta/website-sinta/sinta-app/app/Http/Controllers/SintaController.php:105)
+[stacktrace]
+#0 {main}
+"} 
