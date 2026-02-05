@@ -421,3 +421,568 @@
                     NPI AS npi,
                     NIDN AS nidn
                  from `dosens` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ridwan% or `NPI` LIKE %ridwan% or `NIDN` LIKE %ridwan% limit 10)  
+[2026-02-05 16:00:54] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %na% or `NPI` LIKE %na% or `NIDN` LIKE %na% limit 10)  
+[2026-02-05 16:00:55] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %nas% or `NPI` LIKE %nas% or `NIDN` LIKE %nas% limit 10)  
+[2026-02-05 16:00:55] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %nasi% or `NPI` LIKE %nasi% or `NIDN` LIKE %nasi% limit 10)  
+[2026-02-05 16:00:56] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %nasir% or `NPI` LIKE %nasir% or `NIDN` LIKE %nasir% limit 10)  
+[2026-02-05 16:00:56] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %nasi% or `NPI` LIKE %nasi% or `NIDN` LIKE %nasi% limit 10)  
+[2026-02-05 16:00:57] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %nasir% or `NPI` LIKE %nasir% or `NIDN` LIKE %nasir% limit 10)  
+[2026-02-05 16:00:58] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %nasi% or `NPI` LIKE %nasi% or `NIDN` LIKE %nasi% limit 10)  
+[2026-02-05 16:00:59] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %nas% or `NPI` LIKE %nas% or `NIDN` LIKE %nas% limit 10)  
+[2026-02-05 16:00:59] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %na% or `NPI` LIKE %na% or `NIDN` LIKE %na% limit 10)  
+[2026-02-05 16:01:00] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %na% or `NPI` LIKE %na% or `NIDN` LIKE %na% limit 10)  
+[2026-02-05 16:01:00] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %nas% or `NPI` LIKE %nas% or `NIDN` LIKE %nas% limit 10)  
+[2026-02-05 16:01:01] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %nasi% or `NPI` LIKE %nasi% or `NIDN` LIKE %nasi% limit 10)  
+[2026-02-05 16:01:02] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %nas% or `NPI` LIKE %nas% or `NIDN` LIKE %nas% limit 10)  
+[2026-02-05 16:01:02] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %na% or `NPI` LIKE %na% or `NIDN` LIKE %na% limit 10)  
+[2026-02-05 16:01:03] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %mu% or `NPI` LIKE %mu% or `NIDN` LIKE %mu% limit 10)  
+[2026-02-05 16:01:04] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %muh% or `NPI` LIKE %muh% or `NIDN` LIKE %muh% limit 10)  
+[2026-02-05 16:01:04] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %muha% or `NPI` LIKE %muha% or `NIDN` LIKE %muha% limit 10)  
+[2026-02-05 16:01:05] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %muham% or `NPI` LIKE %muham% or `NIDN` LIKE %muham% limit 10)  
+[2026-02-05 16:01:05] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %muhamm% or `NPI` LIKE %muhamm% or `NIDN` LIKE %muhamm% limit 10)  
+[2026-02-05 16:01:06] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %muha% or `NPI` LIKE %muha% or `NIDN` LIKE %muha% limit 10)  
+[2026-02-05 16:01:06] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %muh% or `NPI` LIKE %muh% or `NIDN` LIKE %muh% limit 10)  
+[2026-02-05 16:01:07] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %mu% or `NPI` LIKE %mu% or `NIDN` LIKE %mu% limit 10)  
+[2026-02-05 16:01:07] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %muham% or `NPI` LIKE %muham% or `NIDN` LIKE %muham% limit 10)  
+[2026-02-05 16:01:08] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ri% or `NPI` LIKE %ri% or `NIDN` LIKE %ri% limit 10)  
+[2026-02-05 16:01:08] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %rid% or `NPI` LIKE %rid% or `NIDN` LIKE %rid% limit 10)  
+[2026-02-05 16:01:09] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ri% or `NPI` LIKE %ri% or `NIDN` LIKE %ri% limit 10)  
+[2026-02-05 16:01:52] local.ERROR: There are no commands defined in the "optimizer" namespace.
+
+Did you mean this?
+    optimize {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"optimizer\" namespace.
+
+Did you mean this?
+    optimize at C:/Users/Siti Farah Fakhirah/Documents/projects/website-sinta/sinta-app/vendor/symfony/console/Application.php:694)
+[stacktrace]
+#0 C:/Users/Siti Farah Fakhirah/Documents/projects/website-sinta/sinta-app/vendor/symfony/console/Application.php(743): Symfony/Component/Console/Application->findNamespace('optimizer')
+#1 C:/Users/Siti Farah Fakhirah/Documents/projects/website-sinta/sinta-app/vendor/symfony/console/Application.php(298): Symfony/Component/Console/Application->find('optimizer:clear')
+#2 C:/Users/Siti Farah Fakhirah/Documents/projects/website-sinta/sinta-app/vendor/symfony/console/Application.php(195): Symfony/Component/Console/Application->doRun(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#3 C:/Users/Siti Farah Fakhirah/Documents/projects/website-sinta/sinta-app/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony/Component/Console/Application->run(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#4 C:/Users/Siti Farah Fakhirah/Documents/projects/website-sinta/sinta-app/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate/Foundation/Console/Kernel->handle(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#5 C:/Users/Siti Farah Fakhirah/Documents/projects/website-sinta/sinta-app/artisan(16): Illuminate/Foundation/Application->handleCommand(Object(Symfony/Component/Console/Input/ArgvInput))
+#6 {main}
+"} 
+[2026-02-05 16:02:21] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %na% or `NPI` LIKE %na% or `NIDN` LIKE %na% limit 10)  
+[2026-02-05 16:02:22] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %nas% or `NPI` LIKE %nas% or `NIDN` LIKE %nas% limit 10)  
+[2026-02-05 16:02:22] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %na% or `NPI` LIKE %na% or `NIDN` LIKE %na% limit 10)  
+[2026-02-05 16:02:23] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ri% or `NPI` LIKE %ri% or `NIDN` LIKE %ri% limit 10)  
+[2026-02-05 16:02:24] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %rid% or `NPI` LIKE %rid% or `NIDN` LIKE %rid% limit 10)  
+[2026-02-05 16:02:24] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ridw% or `NPI` LIKE %ridw% or `NIDN` LIKE %ridw% limit 10)  
+[2026-02-05 16:03:19] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ri% or `NPI` LIKE %ri% or `NIDN` LIKE %ri% limit 10)  
+[2026-02-05 16:03:20] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ris% or `NPI` LIKE %ris% or `NIDN` LIKE %ris% limit 10)  
+[2026-02-05 16:03:20] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ri% or `NPI` LIKE %ri% or `NIDN` LIKE %ri% limit 10)  
+[2026-02-05 16:03:21] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %rid% or `NPI` LIKE %rid% or `NIDN` LIKE %rid% limit 10)  
+[2026-02-05 16:03:21] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ridw% or `NPI` LIKE %ridw% or `NIDN` LIKE %ridw% limit 10)  
+[2026-02-05 16:03:22] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ridwa% or `NPI` LIKE %ridwa% or `NIDN` LIKE %ridwa% limit 10)  
+[2026-02-05 16:03:22] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ridwan% or `NPI` LIKE %ridwan% or `NIDN` LIKE %ridwan% limit 10)  
+[2026-02-05 16:03:28] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ridwa% or `NPI` LIKE %ridwa% or `NIDN` LIKE %ridwa% limit 10)  
+[2026-02-05 16:03:29] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ridw% or `NPI` LIKE %ridw% or `NIDN` LIKE %ridw% limit 10)  
+[2026-02-05 16:03:29] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %rid% or `NPI` LIKE %rid% or `NIDN` LIKE %rid% limit 10)  
+[2026-02-05 16:03:30] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ri% or `NPI` LIKE %ri% or `NIDN` LIKE %ri% limit 10)  
+[2026-02-05 16:03:48] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ri% or `NPI` LIKE %ri% or `NIDN` LIKE %ri% limit 10)  
+[2026-02-05 16:04:09] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ri% or `NPI` LIKE %ri% or `NIDN` LIKE %ri% limit 10)  
+[2026-02-05 16:04:09] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %rid% or `NPI` LIKE %rid% or `NIDN` LIKE %rid% limit 10)  
+[2026-02-05 16:04:10] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ridw% or `NPI` LIKE %ridw% or `NIDN` LIKE %ridw% limit 10)  
+[2026-02-05 16:04:11] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ridwa% or `NPI` LIKE %ridwa% or `NIDN` LIKE %ridwa% limit 10)  
+[2026-02-05 16:04:11] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ridwan% or `NPI` LIKE %ridwan% or `NIDN` LIKE %ridwan% limit 10)  
+[2026-02-05 16:04:56] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ro% or `NPI` LIKE %ro% or `NIDN` LIKE %ro% limit 10)  
+[2026-02-05 16:04:56] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ri% or `NPI` LIKE %ri% or `NIDN` LIKE %ri% limit 10)  
+[2026-02-05 16:04:57] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %rid% or `NPI` LIKE %rid% or `NIDN` LIKE %rid% limit 10)  
+[2026-02-05 16:04:57] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ridw% or `NPI` LIKE %ridw% or `NIDN` LIKE %ridw% limit 10)  
+[2026-02-05 16:04:58] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ridwa% or `NPI` LIKE %ridwa% or `NIDN` LIKE %ridwa% limit 10)  
+[2026-02-05 16:04:59] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ridw% or `NPI` LIKE %ridw% or `NIDN` LIKE %ridw% limit 10)  
+[2026-02-05 16:10:20] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ri% or `NPI` LIKE %ri% or `NIDN` LIKE %ri% limit 10)  
+[2026-02-05 16:10:21] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %rid% or `NPI` LIKE %rid% or `NIDN` LIKE %rid% limit 10)  
+[2026-02-05 16:10:22] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ridw% or `NPI` LIKE %ridw% or `NIDN` LIKE %ridw% limit 10)  
+[2026-02-05 16:10:22] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ridwa% or `NPI` LIKE %ridwa% or `NIDN` LIKE %ridwa% limit 10)  
+[2026-02-05 16:10:23] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ridwan% or `NPI` LIKE %ridwan% or `NIDN` LIKE %ridwan% limit 10)  
+[2026-02-05 16:14:38] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ri% or `NPI` LIKE %ri% or `NIDN` LIKE %ri% limit 10)  
+[2026-02-05 16:14:38] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %rid% or `NPI` LIKE %rid% or `NIDN` LIKE %rid% limit 10)  
+[2026-02-05 16:22:23] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ro% or `NPI` LIKE %ro% or `NIDN` LIKE %ro% limit 10)  
+[2026-02-05 16:22:24] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ri% or `NPI` LIKE %ri% or `NIDN` LIKE %ri% limit 10)  
+[2026-02-05 16:23:56] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ri% or `NPI` LIKE %ri% or `NIDN` LIKE %ri% limit 10)  
+[2026-02-05 16:23:57] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %rid% or `NPI` LIKE %rid% or `NIDN` LIKE %rid% limit 10)  
+[2026-02-05 16:23:58] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ridw% or `NPI` LIKE %ridw% or `NIDN` LIKE %ridw% limit 10)  
+[2026-02-05 16:23:58] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ridwa% or `NPI` LIKE %ridwa% or `NIDN` LIKE %ridwa% limit 10)  
+[2026-02-05 16:23:59] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ridwan% or `NPI` LIKE %ridwan% or `NIDN` LIKE %ridwan% limit 10)  
+[2026-02-05 16:27:26] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ri% or `NPI` LIKE %ri% or `NIDN` LIKE %ri% limit 10)  
+[2026-02-05 16:28:05] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ri% or `NPI` LIKE %ri% or `NIDN` LIKE %ri% limit 10)  
+[2026-02-05 16:28:06] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %rid% or `NPI` LIKE %rid% or `NIDN` LIKE %rid% limit 10)  
+[2026-02-05 16:28:06] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ridw% or `NPI` LIKE %ridw% or `NIDN` LIKE %ridw% limit 10)  
+[2026-02-05 16:28:50] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ri% or `NPI` LIKE %ri% or `NIDN` LIKE %ri% limit 10)  
+[2026-02-05 16:28:52] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %rid% or `NPI` LIKE %rid% or `NIDN` LIKE %rid% limit 10)  
+[2026-02-05 16:28:52] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ridw% or `NPI` LIKE %ridw% or `NIDN` LIKE %ridw% limit 10)  
+[2026-02-05 16:28:53] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ridwa% or `NPI` LIKE %ridwa% or `NIDN` LIKE %ridwa% limit 10)  
+[2026-02-05 16:28:53] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ridwan% or `NPI` LIKE %ridwan% or `NIDN` LIKE %ridwan% limit 10)  
+[2026-02-05 16:40:25] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ri% or `NPI` LIKE %ri% or `NIDN` LIKE %ri% limit 10)  
+[2026-02-05 16:40:26] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %rid% or `NPI` LIKE %rid% or `NIDN` LIKE %rid% limit 10)  
+[2026-02-05 16:40:28] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ridw% or `NPI` LIKE %ridw% or `NIDN` LIKE %ridw% limit 10)  
+[2026-02-05 16:40:32] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %rid% or `NPI` LIKE %rid% or `NIDN` LIKE %rid% limit 10)  
+[2026-02-05 16:40:32] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ri% or `NPI` LIKE %ri% or `NIDN` LIKE %ri% limit 10)  
+[2026-02-05 16:41:56] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %rt% or `NPI` LIKE %rt% or `NIDN` LIKE %rt% limit 10)  
+[2026-02-05 16:42:01] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ge% or `NPI` LIKE %ge% or `NIDN` LIKE %ge% limit 10)  
+[2026-02-05 16:42:02] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %gen% or `NPI` LIKE %gen% or `NIDN` LIKE %gen% limit 10)  
+[2026-02-05 16:42:03] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ge% or `NPI` LIKE %ge% or `NIDN` LIKE %ge% limit 10)  
+[2026-02-05 16:42:03] local.ERROR: Autocomplete dosen error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %gem% or `NPI` LIKE %gem% or `NIDN` LIKE %gem% limit 10)  
+[2026-02-05 16:48:19] local.ERROR: filemtime(): stat failed for C:\Users\Siti Farah Fakhirah\Documents\projects\website-sinta\sinta-app\.env {"exception":"[object] (ErrorException(code: 0): filemtime(): stat failed for C:\\Users\\Siti Farah Fakhirah\\Documents\\projects\\website-sinta\\sinta-app\\.env at C:/Users/Siti Farah Fakhirah/Documents/projects/website-sinta/sinta-app/vendor/laravel/framework/src/Illuminate/Foundation/Console/ServeCommand.php:147)
+[stacktrace]
+#0 C:/Users/Siti Farah Fakhirah/Documents/projects/website-sinta/sinta-app/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(258): Illuminate/Foundation/Bootstrap/HandleExceptions->handleError(2, 'filemtime(): st...', 'C://Users//Siti F...', 147)
+#1 [internal function]: Illuminate/Foundation/Bootstrap/HandleExceptions->Illuminate/Foundation/Bootstrap/{closure}(2, 'filemtime(): st...', 'C://Users//Siti F...', 147)
+#2 C:/Users/Siti Farah Fakhirah/Documents/projects/website-sinta/sinta-app/vendor/laravel/framework/src/Illuminate/Foundation/Console/ServeCommand.php(147): filemtime('C://Users//Siti F...')
+#3 C:/Users/Siti Farah Fakhirah/Documents/projects/website-sinta/sinta-app/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): Illuminate/Foundation/Console/ServeCommand->handle()
+#4 C:/Users/Siti Farah Fakhirah/Documents/projects/website-sinta/sinta-app/vendor/laravel/framework/src/Illuminate/Container/Util.php(43): Illuminate/Container/BoundMethod::Illuminate/Container/{closure}()
+#5 C:/Users/Siti Farah Fakhirah/Documents/projects/website-sinta/sinta-app/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(96): Illuminate/Container/Util::unwrapIfClosure(Object(Closure))
+#6 C:/Users/Siti Farah Fakhirah/Documents/projects/website-sinta/sinta-app/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate/Container/BoundMethod::callBoundMethod(Object(Illuminate/Foundation/Application), Array, Object(Closure))
+#7 C:/Users/Siti Farah Fakhirah/Documents/projects/website-sinta/sinta-app/vendor/laravel/framework/src/Illuminate/Container/Container.php(799): Illuminate/Container/BoundMethod::call(Object(Illuminate/Foundation/Application), Array, Array, NULL)
+#8 C:/Users/Siti Farah Fakhirah/Documents/projects/website-sinta/sinta-app/vendor/laravel/framework/src/Illuminate/Console/Command.php(211): Illuminate/Container/Container->call(Array)
+#9 C:/Users/Siti Farah Fakhirah/Documents/projects/website-sinta/sinta-app/vendor/symfony/console/Command/Command.php(341): Illuminate/Console/Command->execute(Object(Symfony/Component/Console/Input/ArgvInput), Object(Illuminate/Console/OutputStyle))
+#10 C:/Users/Siti Farah Fakhirah/Documents/projects/website-sinta/sinta-app/vendor/laravel/framework/src/Illuminate/Console/Command.php(180): Symfony/Component/Console/Command/Command->run(Object(Symfony/Component/Console/Input/ArgvInput), Object(Illuminate/Console/OutputStyle))
+#11 C:/Users/Siti Farah Fakhirah/Documents/projects/website-sinta/sinta-app/vendor/symfony/console/Application.php(1102): Illuminate/Console/Command->run(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#12 C:/Users/Siti Farah Fakhirah/Documents/projects/website-sinta/sinta-app/vendor/symfony/console/Application.php(356): Symfony/Component/Console/Application->doRunCommand(Object(Illuminate/Foundation/Console/ServeCommand), Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#13 C:/Users/Siti Farah Fakhirah/Documents/projects/website-sinta/sinta-app/vendor/symfony/console/Application.php(195): Symfony/Component/Console/Application->doRun(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#14 C:/Users/Siti Farah Fakhirah/Documents/projects/website-sinta/sinta-app/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony/Component/Console/Application->run(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#15 C:/Users/Siti Farah Fakhirah/Documents/projects/website-sinta/sinta-app/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate/Foundation/Console/Kernel->handle(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#16 C:/Users/Siti Farah Fakhirah/Documents/projects/website-sinta/sinta-app/artisan(16): Illuminate/Foundation/Application->handleCommand(Object(Symfony/Component/Console/Input/ArgvInput))
+#17 {main}
+"} 

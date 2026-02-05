@@ -87,7 +87,7 @@ class SintaController extends Controller
         }
 
         // PATH PYTHON (Windows)
-        $python = 'python'; // ganti 'py' kalau python tidak dikenali
+        $python = 'py'; // ganti 'py' kalau python tidak dikenali
 
         // PATH FILE PYTHON (ABSOLUTE, PALING AMAN)
         $script = base_path('/python/sinta_scraper.py');
