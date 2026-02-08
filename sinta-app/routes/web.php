@@ -2,17 +2,46 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SintaController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DosenController;
 
-// Halaman utama
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+*/
+
+// ===== HALAMAN UTAMA =====
 Route::get('/', function () {
-    return view('beranda');
+    return redirect()->route('beranda');
 });
 
-// API Endpoints untuk SINTA
-Route::get('/api/get-all-dosen', [SintaController::class, 'getAllDosen']); // Autocomplete endpoint
+Route::get('/cari-data', [SintaController::class, 'beranda'])->name('beranda');
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/daftar-dosen', [DosenController::class, 'index'])->name('daftar-dosen');
+
+// ===== API SINTA (SCRAPING & SEARCH) =====
 Route::prefix('api/sinta')->group(function () {
     Route::get('/search', [SintaController::class, 'search']);
-    Route::get('/scrape', [SintaController::class, 'scrape']); // New route
+    Route::get('/scrape', [SintaController::class, 'scrape']);
     Route::get('/profile/{id}', [SintaController::class, 'getProfile']);
     Route::get('/publications/{id}/{source?}', [SintaController::class, 'getPublications']);
+    
+    // Autocomplete endpoint untuk search (beranda page)
+    Route::get('/get-all-dosen', [SintaController::class, 'getAllDosen']);
+});
+
+// ===== API DOSEN (CRUD) =====
+Route::prefix('api/dosen')->group(function () {
+    Route::get('/get-all', [DosenController::class, 'getAllDosen']);
+    Route::post('/add', [DosenController::class, 'addDosen']);
+    Route::put('/update/{id}', [DosenController::class, 'updateDosen']);
+    Route::delete('/delete/{id}', [DosenController::class, 'deleteDosen']);
+});
+
+// ===== API DASHBOARD (STATISTICS) =====
+Route::prefix('api/dashboard')->group(function () {
+    Route::get('/stats', [DashboardController::class, 'getStats']);
+    Route::get('/top-dosen', [DashboardController::class, 'getTopDosen']);
+    Route::get('/departemen-stats', [DashboardController::class, 'getDepartemenStats']);
 });

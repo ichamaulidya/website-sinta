@@ -15,6 +15,10 @@ class SintaController extends Controller
     private $client;
     private $baseUrl = 'https://sinta.kemdiktisaintek.go.id'; // Updated URL
 
+    public function beranda()
+    {
+        return view('beranda');
+    }
     public function __construct()
     {
         $this->client = new Client([
