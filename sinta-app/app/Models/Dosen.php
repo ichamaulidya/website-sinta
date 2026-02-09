@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Dosen extends Model
 {
-
     use HasFactory;
     protected $table = 'dosen'; // ⬅️ WAJIB (karena default Laravel = dosens)
     protected $primaryKey = 'id';
