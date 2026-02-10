@@ -1,0 +1,9 @@
+/vendor
+/storage/framework/cache/data/*
+/storage/framework/sessions/*
+/storage/framework/views/*.php
+/storage/logs/*.log
+.env
+.env.backup
+composer.lock
+package-lock.json

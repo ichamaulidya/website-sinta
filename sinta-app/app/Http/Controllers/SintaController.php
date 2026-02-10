@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Process;
 use App\Models\Dosen;
+use App\Models\Publication; 
+use App\Exports\PublicationsExport; 
+use Maatwebsite\Excel\Facades\Excel; 
 
 class SintaController extends Controller
 {
@@ -75,6 +78,15 @@ class SintaController extends Controller
         }
     }
 
+    public function exportExcel(Request $request)
+    {
+        $year = $request->query('year', now()->year);
+        $month = $request->query('month', now()->month);
+        
+        $fileName = "Laporan_Publikasi_SINTA_{$year}_{$month}.xlsx";
+        
+        return Excel::download(new PublicationsExport($year, $month), $fileName);
+    }
 
     /**
      * Scrape data SINTA by ID using Python script
@@ -117,12 +129,23 @@ class SintaController extends Controller
 
         $json = json_decode($output, true);
 
-        if (!$json) {
-            return response()->json([
-                'success' => false,
-                'error' => 'Output Python bukan JSON valid',
-                'raw' => $output
-            ], 500);
+        if (isset($json['documents']) && is_array($json['documents'])) {
+            foreach ($json['documents'] as $doc) {
+                \App\Models\Publication::updateOrCreate(
+                    [
+                    'sinta_id' => $id,
+                    'title'    => $doc['title'],
+                    'year' => isset($doc['year']) ? substr(trim($doc['year']), -4) : date('Y')
+                    ],
+                    [
+                    'source'   => $doc['source'],
+                    'journal'  => $doc['journal'] ?? '-',
+                    'cited'    => (int) ($doc['cited'] ?? 0),
+                    'type'     => $doc['type'] ?? '-',
+                    // 'created_at' otomatis terisi saat data pertama kali masuk (untuk filter bulan)
+                    ]
+                );
+            }
         }
 
         return response()->json([
