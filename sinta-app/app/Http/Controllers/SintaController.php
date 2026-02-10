@@ -15,6 +15,10 @@ class SintaController extends Controller
     private $client;
     private $baseUrl = 'https://sinta.kemdiktisaintek.go.id'; // Updated URL
 
+    public function beranda()
+    {
+        return view('beranda');
+    }
     public function __construct()
     {
         $this->client = new Client([
@@ -90,7 +94,7 @@ class SintaController extends Controller
         $python = 'python'; // ganti 'py' kalau python tidak dikenali
 
         // PATH FILE PYTHON (ABSOLUTE, PALING AMAN)
-        $script = base_path('python/sinta_scraper.py');
+        $script = base_path('/python/sinta_scraper.py');
 
         if (!file_exists($script)) {
             return response()->json([

@@ -345,8 +345,13 @@ class ComposerStaticInitf48ffe1bb7b037f2a655d7ee4e7e733a
         ),
         'Psr\\Http\\Message\\' => 
         array (
+<<<<<<< HEAD
             0 => __DIR__ . '/..' . '/psr/http-factory/src',
             1 => __DIR__ . '/..' . '/psr/http-message/src',
+=======
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
+            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+>>>>>>> origin/icheww
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -378,8 +383,13 @@ class ComposerStaticInitf48ffe1bb7b037f2a655d7ee4e7e733a
         ),
         'Nette\\' => 
         array (
+<<<<<<< HEAD
             0 => __DIR__ . '/..' . '/nette/schema/src',
             1 => __DIR__ . '/..' . '/nette/utils/src',
+=======
+            0 => __DIR__ . '/..' . '/nette/utils/src',
+            1 => __DIR__ . '/..' . '/nette/schema/src',
+>>>>>>> origin/icheww
         ),
         'Monolog\\' => 
         array (
@@ -391,8 +401,13 @@ class ComposerStaticInitf48ffe1bb7b037f2a655d7ee4e7e733a
         ),
         'League\\Uri\\' => 
         array (
+<<<<<<< HEAD
             0 => __DIR__ . '/..' . '/league/uri',
             1 => __DIR__ . '/..' . '/league/uri-interfaces',
+=======
+            0 => __DIR__ . '/..' . '/league/uri-interfaces',
+            1 => __DIR__ . '/..' . '/league/uri',
+>>>>>>> origin/icheww
         ),
         'League\\MimeTypeDetection\\' => 
         array (

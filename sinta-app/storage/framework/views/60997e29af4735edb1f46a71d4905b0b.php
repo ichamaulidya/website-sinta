@@ -1,8 +1,8 @@
-@extends('app')
 
-@section('title', 'Cari Data')
 
-@section('content')
+<?php $__env->startSection('title', 'Cari Data'); ?>
+
+<?php $__env->startSection('content'); ?>
 <div class="card">
     <h3 class="card-title">Cari Data Dosen</h3>
     <div class="search-grid">
@@ -69,9 +69,9 @@
         <p>Silakan cari data dosen menggunakan form di atas</p>
     </div>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@push('styles')
+<?php $__env->startPush('styles'); ?>
 <style>
     /* Additional styles specific to beranda page */
     .search-grid {
@@ -255,9 +255,9 @@
         }
     }
 </style>
-@endpush
+<?php $__env->stopPush(); ?>
 
-@push('scripts')
+<?php $__env->startPush('scripts'); ?>
 <script>
 let selectedSintaId = null;
 let currentFullData = null;
@@ -449,4 +449,5 @@ document.addEventListener('click', function(event) {
     }
 });
 </script>
-@endpush
+<?php $__env->stopPush(); ?>
+<?php echo $__env->make('app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\SKRIPSI\project_sinta\website-sinta\sinta-app\resources\views/beranda.blade.php ENDPATH**/ ?>
