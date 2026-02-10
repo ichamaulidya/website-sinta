@@ -45,7 +45,7 @@
         .tab { padding: 16px 24px; background-color: #f9fafb; border: none; font-size: 14px; font-weight: 600; cursor: pointer; color: #6b7280; }
         .tab.active { background-color: #dc2626; color: white; }
         .tab-content { padding: 24px; }
-        .metrics-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; margin-bottom: 24px; }
+        .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
         .metric-box { text-align: center; padding: 12px; background-color: #f9fafb; border-radius: 8px; }
         .metric-value { font-size: 24px; font-weight: bold; color: #1f2937; }
         table { width: 100%; border-collapse: collapse; }
@@ -113,10 +113,14 @@
                         </div>
                         <div class="tab-content">
                             <div class="metrics-grid">
-                                <div class="metric-box"><div class="metric-label">Article</div><div class="metric-value" id="metricArticle"></div></div>
-                                <div class="metric-box"><div class="metric-label">Citation</div><div class="metric-value" id="metricCitation"></div></div>
-                                <div class="metric-box"><div class="metric-label">H-Index</div><div class="metric-value" id="metricHIndex"></div></div>
-                                <div class="metric-box"><div class="metric-label">i10-Index</div><div class="metric-value" id="metrici10Index"></div></div>
+                                <div class="metric-box"><div class="metric-label">Articles</div><div class="metric-value" id="metricArticle">0</div></div>
+                                <div class="metric-box"><div class="metric-label">Researches</div><div class="metric-value" id="metricResearch">0</div></div>
+                                <div class="metric-box"><div class="metric-label">Comm. Services</div><div class="metric-value" id="metricService">0</div></div>
+                                <div class="metric-box"><div class="metric-label">IPRs</div><div class="metric-value" id="metricIPR">0</div></div>
+                                <div class="metric-box"><div class="metric-label">Books</div><div class="metric-value" id="metricBook">0</div></div>
+                                <div class="metric-box"><div class="metric-label">H-Index</div><div class="metric-value" id="metricHIndex">0</div></div>
+                                <div class="metric-box"><div class="metric-label">Citation</div><div class="metric-value" id="metricCitation">0</div></div>
+                                <div class="metric-box"><div class="metric-label">i10-Index</div><div class="metric-value" id="metrici10Index">0</div></div>
                             </div>
                             <table>
                                 <thead><tr><th>Judul</th><th>Tahun</th><th>Cited</th></tr></thead>
@@ -132,160 +136,126 @@
     </div>
 
     <script>
-        // Update NIP dengan SINTA ID asli agar scraping jalan
-        let dosenList = [];
-        let selectedSintaId = '';
+    let selectedSintaId = null;
+    let currentFullData = null;
 
-        // Ambil data dosen dari database MySQL saat halaman dimuat
-        async function initDosenList() {
-            try {
-                const res = await fetch('/api/get-all-dosen');
-                dosenList = await res.json();
-                console.log("Database Dosen Terhubung:", dosenList);
-            } catch (e) {
-                console.error("Gagal mengambil daftar dosen:", e);
-            }
-        }
-        initDosenList();
+    const searchInput = document.getElementById('searchInput');
+    const dropdownMenu = document.getElementById('dropdownMenu');
 
-        let selectedNip = '';
-        let currentFullData = null;
+    searchInput.addEventListener('input', async function () {
+        const query = this.value.trim();
+        dropdownMenu.innerHTML = '';
+        dropdownMenu.classList.remove('show');
+        if (query.length < 2) return;
 
-        const searchInput = document.getElementById('searchInput');
-        const dropdownMenu = document.getElementById('dropdownMenu');
+        try {
+            const res = await fetch(`/api/get-all-dosen?q=${encodeURIComponent(query)}`);
+            const json = await res.json();
+            if (!json.success || json.data.length === 0) return;
 
-        searchInput.addEventListener('input', function() {
-            const query = this.value.toLowerCase();
-            if (query.length === 0) { dropdownMenu.classList.remove('show'); return; }
-            const filtered = dosenList.filter(d => d.nama.toLowerCase().includes(query) || d.sinta_id && d.sinta_id.includes(query));
-            // 2. Update tampilan item agar mengirim sinta_id saat diklik
-            if (filtered.length > 0) {
-                dropdownMenu.innerHTML = filtered.map(d => `<div class="dropdown-item" onclick="selectDosen('${d.sinta_id}')"> <div class="dropdown-item-title">${d.nama}</div> <div class="dropdown-item-nip">ID: ${d.sinta_id}</div></div>`).join('');
-                dropdownMenu.classList.add('show');
-            } else { dropdownMenu.classList.remove('show'); }
+            dropdownMenu.innerHTML = json.data.map(d => `
+                <div class="dropdown-item" onclick="selectDosen('${d.sinta_id}', '${d.nama}')">
+                    <div class="dropdown-item-title">${d.nama}</div>
+                    <div class="dropdown-item-nip">SINTA ID: ${d.sinta_id} | NIDN: ${d.nidn ?? '-'}</div>
+                </div>
+            `).join('');
+            dropdownMenu.classList.add('show');
+        } catch (err) { console.error('Autocomplete error:', err); }
+    });
+
+    function selectDosen(sintaId, nama) {
+        selectedSintaId = sintaId;
+        searchInput.value = nama;
+        dropdownMenu.classList.remove('show');
+    }
+
+    async function searchDosen() {
+        let idToSearch = /^\d{6,}$/.test(searchInput.value.trim()) ? searchInput.value.trim() : selectedSintaId;
+        if (!idToSearch) { alert('Pilih dosen dari dropdown atau masukkan SINTA ID'); return; }
+
+        const btn = document.querySelector('.btn-primary');
+        btn.innerHTML = 'Memuat...';
+        btn.disabled = true;
+
+        try {
+            const res = await fetch(`/api/sinta/scrape?id=${idToSearch}`);
+            const json = await res.json();
+            if (!json.success) throw new Error(json.error);
+
+            currentFullData = json.data;
+
+            /* ===== PROFIL ===== */
+            document.getElementById('dosenNama').textContent = currentFullData.profile?.name ?? '-';
+            document.getElementById('dosenInstitusi').textContent = currentFullData.profile?.affiliation ?? '-';
+            document.getElementById('dosenDepartemen').textContent = currentFullData.profile?.department ?? '-';
+            document.getElementById('dosenSintaId').textContent = 'SINTA ID: ' + idToSearch;
+
+            /* ===== SCORE ===== */
+            document.getElementById('sintaOverall').textContent = currentFullData.metrics?.['SINTA Score Overall'] ?? '0';
+            document.getElementById('sinta3yr').textContent = currentFullData.metrics?.['SINTA Score 3Yr'] ?? '0';
+            document.getElementById('affilOverall').textContent = currentFullData.metrics?.['Affil Score'] ?? '0';
+            document.getElementById('affil3yr').textContent = currentFullData.metrics?.['Affil Score 3Yr'] ?? '0';
+
+            /* ===== STAT (TARIK DATA DARI stats DI JSON) ===== */
+            document.getElementById('metricArticle').textContent = currentFullData.stats?.['Article'] ?? '0';
+            document.getElementById('metricResearch').textContent = currentFullData.stats?.['Research'] ?? '0';
+            document.getElementById('metricService').textContent = currentFullData.stats?.['Community Service'] ?? '0';
+            document.getElementById('metricIPR').textContent = currentFullData.stats?.['IPR'] ?? '0';
+            document.getElementById('metricBook').textContent = currentFullData.stats?.['Book'] ?? '0';
+            
+            // Metrics Tambahan
+            document.getElementById('metricCitation').textContent = currentFullData.stats?.['Citation'] ?? '0';
+            document.getElementById('metricHIndex').textContent = currentFullData.stats?.['H-Index'] ?? '0';
+            document.getElementById('metrici10Index').textContent = currentFullData.stats?.['i10-Index'] ?? '0';
+
+            document.getElementById('emptyState').classList.add('hidden');
+            document.getElementById('resultsSection').classList.remove('hidden');
+
+            changeTab('scopus');
+        } catch (err) { alert('Gagal mengambil data: ' + err.message); }
+        finally { btn.innerHTML = 'Cari Data'; btn.disabled = false; }
+    }
+
+    function changeTab(tabName) {
+        document.querySelectorAll('.tab').forEach(t => {
+            t.classList.remove('active');
+            if (t.textContent.toLowerCase() === tabName.toLowerCase()) t.classList.add('active');
         });
 
-        function selectDosen(id) {
-            selectedNip = id;
-            const dosen = dosenList.find(d => d.sinta_id === id);
-            if (dosen) {
-                searchInput.value = dosen.nama;
-            }
-            dropdownMenu.classList.remove('show');
+        if (!currentFullData?.documents) return;
+
+        let sourceFilter = tabName;
+        if (tabName === 'scholar') sourceFilter = 'googlescholar';
+
+        // Filter dokumen berdasarkan source
+        const docs = currentFullData.documents.filter(d => d.source === sourceFilter || (tabName === 'scholar' && d.source === 'garuda'));
+        
+        renderDocuments(docs, tabName);
+    }
+
+    function renderDocuments(docs, source) {
+        const tbody = document.getElementById('publicationTable');
+        if (!docs || docs.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="3" style="text-align:center">Tidak ada data</td></tr>`;
+            return;
         }
 
-        // Fungsi Final dengan Fetch API
-        async function searchDosen() {
-            // Priority: Check input value directly first
-            const inputVal = searchInput.value.trim();
-            
-            // If input is purely numeric, assume it's SINTA ID
-            const isSintaId = /^\d+$/.test(inputVal);
-            
-            let idToSearch = isSintaId ? inputVal : selectedNip;
-            
-            if (!idToSearch) { alert('Masukkan SINTA ID atau pilih dosen!'); return; }
-            
-            const btn = document.querySelector('.btn-primary');
-            btn.innerHTML = 'Memuat...';
-            
-            try {
-                // Use new scrape endpoint
-                const res = await fetch(`/api/sinta/scrape?id=${idToSearch}`);
-                const response = await res.json();
-                
-                if (!response.success) {
-                    throw new Error(response.error || 'Gagal mengambil data');
-                }
+        tbody.innerHTML = docs.map(d => `
+            <tr>
+                <td>
+                    <strong>${d.title}</strong><br>
+                    <small>${d.journal ?? ''}</small>
+                    ${d.type ? `<br><br><small class="badge badge-orange">${d.type}</small>` : ''}
+                </td>
+                <td>${d.year ?? '-'}</td>
+                <td><span class="badge badge-blue">${d.cited ?? '0'}</span></td>
+            </tr>
+        `).join('');
+    }
 
-                const data = response.data;
-                currentFullData = data;
-
-                // Update UI Profile
-                document.getElementById('dosenNama').textContent = data.profile.name;
-                document.getElementById('dosenInstitusi').textContent = data.profile.affiliation;
-                document.getElementById('dosenDepartemen').textContent = data.profile.department;
-                document.getElementById('dosenSintaId').textContent = data.profile.sinta_id_label || ('SINTA ID: ' + data.sinta_id);
-
-                // Update UI Metrics
-                // Map keys from python script to UI
-                document.getElementById('sintaOverall').textContent = data.metrics['SINTA Score Overall'] || '0';
-                document.getElementById('sinta3yr').textContent = data.metrics['SINTA Score 3Yr'] || '0';
-                document.getElementById('affilOverall').textContent = data.metrics['Affil Score'] || '0';
-                document.getElementById('affil3yr').textContent = data.metrics['Affil Score 3Yr'] || '0';
-
-                // Update Stats
-                document.getElementById('metricArticle').textContent = data.stats['Article'] || '0';
-                document.getElementById('metricCitation').textContent = data.stats['Citation'] || '0';
-                document.getElementById('metricHIndex').textContent = data.stats['H-Index'] || '0';
-                document.getElementById('metrici10Index').textContent = data.stats['i10-Index'] || '0';
-
-                document.getElementById('emptyState').classList.add('hidden');
-                document.getElementById('resultsSection').classList.remove('hidden');
-                
-                // Render documents
-                // Initially show Scopus or default to first available
-                changeTab('scopus');
-
-            } catch (e) { 
-                console.error(e);
-                alert('Gagal ambil data: ' + e.message); 
-            }
-            finally { btn.innerHTML = 'Cari Data'; }
-        }
-
-        function renderDocuments(docs) {
-            const tableBody = document.getElementById('publicationTable');
-            if (!docs || docs.length === 0) {
-                tableBody.innerHTML = '<tr><td colspan="3" style="text-align:center">Tidak ada data dokumen</td></tr>';
-                return;
-            }
-
-            tableBody.innerHTML = docs.map(item => `
-                <tr>
-                    <td>
-                        <div style="font-weight:500">${item.title}</div>
-                        <div style="font-size:12px;color:#666">
-                            ${item.journal || ''} 
-                            ${item.type ? '<span class="badge badge-orange">' + item.type + '</span>' : ''}
-                        </div>
-                    </td>
-                    <td>${item.year || '-'}</td>
-                    <td><span class="badge badge-blue">${item.cited || '0'}</span></td>
-                </tr>
-            `).join('');
-        }
-
-        function changeTab(tabName) {
-            // Update active state tab button
-            document.querySelectorAll('.tab').forEach(t => {
-                t.classList.remove('active');
-                if(t.textContent.toLowerCase().includes(tabName.toLowerCase()) || 
-                   (tabName === 'googlescholar' && t.textContent.toLowerCase().includes('scholar'))) {
-                    t.classList.add('active');
-                }
-            });
-
-            if (!currentFullData || !currentFullData.documents) return;
-
-            // Filter documents based on source
-            // Map tab names to source keys from python script
-            // Python uses: 'scopus', 'googlescholar', 'garuda', 'wos'
-            
-            let sourceKey = tabName;
-            if (tabName === 'scholar') sourceKey = 'googlescholar'; 
-            
-            const filteredDocs = currentFullData.documents.filter(doc => doc.source === sourceKey);
-            
-            renderDocuments(filteredDocs);
-        }
-
-        // Old function kept for reference but unused in new flow
-        function loadPublications(tab) {
-             // ...
-        }
-
-        function downloadExcel() { alert('Fitur Excel sedang diproses tim!'); }
+    function downloadExcel() {
+        alert('Export Excel akan diaktifkan setelah data stabil');
+    }
     </script>
 </body>
 </html>

@@ -36,102 +36,95 @@ class SintaController extends Controller
     /**
      * Get all dosen from database for autocomplete
      */
-    public function getAllDosen()
+    public function getAllDosen(Request $request)
     {
         try {
-            // Select only necessary columns
-            $dosens = Dosen::select('nama', 'sinta_id', 'npi', 'nidn')
-                ->whereNotNull('sinta_id')
+            $q = $request->input('q');
+
+            $dosens = Dosen::selectRaw('
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                ')
+                ->whereNotNull('Sinta_ID')
+                ->where('Sinta_ID', '!=', '')
+                ->when($q, function ($query) use ($q) {
+                    $query->where('Nama', 'LIKE', "%{$q}%")
+                        ->orWhere('NPI', 'LIKE', "%{$q}%")
+                        ->orWhere('NIDN', 'LIKE', "%{$q}%");
+                })
+                ->limit(10)
                 ->get();
-                
-            return response()->json($dosens);
+
+            return response()->json([
+                'success' => true,
+                'data' => $dosens
+            ]);
         } catch (\Exception $e) {
-            Log::error("Get all dosen error: " . $e->getMessage());
-            return response()->json(['error' => $e->getMessage()], 500);
+            Log::error("Autocomplete dosen error: " . $e->getMessage());
+
+            return response()->json([
+                'success' => false,
+                'error' => $e->getMessage()
+            ], 500);
         }
     }
+
 
     /**
      * Scrape data SINTA by ID using Python script
      */
     public function scrape(Request $request)
     {
-        $sintaId = $request->input('id');
-        
-        if (empty($sintaId)) {
+        $id = $request->query('id');
+
+        if (!$id) {
             return response()->json([
                 'success' => false,
-                'error' => 'SINTA ID is required'
+                'error' => 'SINTA ID tidak ditemukan'
             ], 400);
         }
 
-        try {
-            // Path to python script
-            $scriptPath = base_path('sinta_scraper.py');
-            
-            // Check if script exists
-            if (!file_exists($scriptPath)) {
-                throw new \Exception("Python script not found at {$scriptPath}");
-            }
+        // PATH PYTHON (Windows)
+        $python = 'python'; // ganti 'py' kalau python tidak dikenali
 
-            // Python executable path (Absolute path required for Windows environment)
-            $pythonPath = 'C:\Users\asa yuaziva\AppData\Local\Microsoft\WindowsApps\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\python.exe';
-            
-            // Prepare environment variables required for Python on Windows
-            $env = [
-                'SYSTEMROOT' => getenv('SYSTEMROOT') ?: 'C:\Windows',
-                'TEMP' => getenv('TEMP') ?: sys_get_temp_dir(),
-                'TMP' => getenv('TMP') ?: sys_get_temp_dir(),
-                'PATH' => getenv('PATH'),
-                'PYTHONIOENCODING' => 'utf-8'
-            ];
+        // PATH FILE PYTHON (ABSOLUTE, PALING AMAN)
+        $script = base_path('python/sinta_scraper.py');
 
-            // Run python script
-            // Using 60s timeout and injecting environment variables
-            $result = Process::timeout(60)
-                ->env($env)
-                ->run([$pythonPath, $scriptPath, $sintaId]);
-
-            if ($result->failed()) {
-                Log::error("Python scraping failed: " . $result->errorOutput());
-                return response()->json([
-                    'success' => false,
-                    'error' => 'Scraping failed: ' . $result->errorOutput()
-                ], 500);
-            }
-
-            $output = $result->output();
-            $data = json_decode($output, true);
-
-            if (json_last_error() !== JSON_ERROR_NONE) {
-                Log::error("Invalid JSON from scraper: " . $output);
-                return response()->json([
-                    'success' => false,
-                    'error' => 'Invalid data received from scraper',
-                    'raw_output' => $output
-                ], 500);
-            }
-            
-            // If the python script returned an error object
-            if (isset($data['error'])) {
-                return response()->json([
-                    'success' => false,
-                    'error' => $data['error']
-                ], 500);
-            }
-
-            return response()->json([
-                'success' => true,
-                'data' => $data
-            ]);
-
-        } catch (\Exception $e) {
-            Log::error("Scrape error: " . $e->getMessage());
+        if (!file_exists($script)) {
             return response()->json([
                 'success' => false,
-                'error' => 'Server error: ' . $e->getMessage()
+                'error' => 'File scraper tidak ditemukan: ' . $script
             ], 500);
         }
+
+        // Escape path (PENTING DI WINDOWS)
+        $command = escapeshellcmd("$python \"$script\" $id");
+
+        $output = shell_exec($command);
+
+        if (!$output) {
+            return response()->json([
+                'success' => false,
+                'error' => 'Python tidak mengembalikan output'
+            ], 500);
+        }
+
+        $json = json_decode($output, true);
+
+        if (!$json) {
+            return response()->json([
+                'success' => false,
+                'error' => 'Output Python bukan JSON valid',
+                'raw' => $output
+            ], 500);
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => $json
+        ]);
     }
 
     /**
