@@ -32,6 +32,7 @@ Route::prefix('api/sinta')->group(function () {
     Route::get('/profile/{id}', [SintaController::class, 'getProfile']);
     Route::get('/publications/{id}/{source?}', [SintaController::class, 'getPublications']);
     Route::get('/export-excel', [SintaController::class, 'exportExcel']);
+    Route::get('/export-excel-single', [SintaController::class, 'exportExcelSingle']);
     
     // Autocomplete endpoint untuk search (beranda page)
     Route::get('/get-all-dosen', [SintaController::class, 'getAllDosen']);
