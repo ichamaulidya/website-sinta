@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Process;
 use App\Models\Dosen;
+use App\Models\Publication; 
+use App\Exports\PublicationsExport; 
+use Maatwebsite\Excel\Facades\Excel; 
 
 class SintaController extends Controller
 {
@@ -23,7 +26,7 @@ class SintaController extends Controller
     {
         $this->client = new Client([
             'verify' => false,
-            'timeout' => 60,
+            'timeout' => 300,
             'allow_redirects' => true,
             'headers' => [
                 'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
@@ -75,12 +78,35 @@ class SintaController extends Controller
         }
     }
 
+    public function exportExcel(Request $request)
+    {
+        $year = $request->query('year', now()->year);
+        $month = $request->query('month', now()->month);
+        
+        $fileName = "Laporan_Publikasi_SINTA_{$year}_{$month}.xlsx";
+        
+        return Excel::download(new PublicationsExport($year, $month), $fileName);
+    }
+
+    public function exportExcelSingle(Request $request)
+    {
+        $id = $request->query('id');
+    
+        // Nama file berdasarkan ID SINTA agar unik
+        $fileName = "Data_Publikasi_{$id}.xlsx";
+    
+        // Kita gunakan class export yang sama, tapi kirim ID SINTA
+        // Kamu perlu menyesuaikan PublicationsExport sedikit jika ingin fitur ini jalan
+        return Excel::download(new \App\Exports\PublicationsExport($id, null, true), $fileName);
+    }
 
     /**
      * Scrape data SINTA by ID using Python script
      */
     public function scrape(Request $request)
     {
+
+        set_time_limit(300);
         $id = $request->query('id');
 
         if (!$id) {
@@ -117,12 +143,23 @@ class SintaController extends Controller
 
         $json = json_decode($output, true);
 
-        if (!$json) {
-            return response()->json([
-                'success' => false,
-                'error' => 'Output Python bukan JSON valid',
-                'raw' => $output
-            ], 500);
+        if (isset($json['documents']) && is_array($json['documents'])) {
+            foreach ($json['documents'] as $doc) {
+                \App\Models\Publication::updateOrCreate(
+                    [
+                    'sinta_id' => $id,
+                    'title'    => $doc['title'],
+                    'year' => isset($doc['year']) ? substr(trim($doc['year']), -4) : date('Y')
+                    ],
+                    [
+                    'source'   => $doc['source'],
+                    'journal'  => $doc['journal'] ?? '-',
+                    'cited'    => (int) ($doc['cited'] ?? 0),
+                    'type'     => $doc['type'] ?? '-',
+                    // 'created_at' otomatis terisi saat data pertama kali masuk (untuk filter bulan)
+                    ]
+                );
+            }
         }
 
         return response()->json([

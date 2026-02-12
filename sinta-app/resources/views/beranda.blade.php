@@ -31,7 +31,11 @@
                     <p class="sinta-id" id="dosenSintaId"></p>
                 </div>
             </div>
-            <button class="btn btn-success" onclick="downloadExcel()">Download Excel</button>
+            <div class="export-container">
+                <button class="btn btn-success" onclick="downloadExcelSingle()">
+                    <span class="icon">📥</span> Download Excel
+                </button>
+            </div>
         </div>
 
         <div class="stats-grid">
@@ -45,8 +49,8 @@
     <div class="card" style="padding: 0;">
         <div class="tabs">
             <button class="tab active" onclick="changeTab('scopus')">Scopus</button>
-            <button class="tab" onclick="changeTab('scholar')">Scholar</button>
             <button class="tab" onclick="changeTab('garuda')">Garuda</button>
+            <button class="tab" onclick="changeTab('wos')">Wos</button>
         </div>
         <div class="tab-content">
             <div class="metrics-grid">
@@ -79,6 +83,29 @@
         grid-template-columns: 1fr auto;
         gap: 15px;
         align-items: end;
+    }
+
+    .export-container {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .export-filters {
+        display: flex;
+        gap: 5px;
+    }
+
+    .form-control-sm {
+        padding: 8px;
+        border: 1px solid #d1d5db;
+        border-radius: 6px;
+        font-size: 0.875rem;
+        outline: none;
+    }
+
+    .form-control-sm:focus {
+        border-color: #10b981;
     }
 
     .dropdown {
@@ -378,18 +405,16 @@ async function searchDosen() {
 function changeTab(tabName) {
     document.querySelectorAll('.tab').forEach(t => {
         t.classList.remove('active');
-        if (t.textContent.toLowerCase().includes(tabName)) {
+        if (t.textContent.toLowerCase() === tabName.toLowerCase()) {
             t.classList.add('active');
         }
     });
 
     if (!currentFullData?.documents) return;
 
-    let source = tabName;
-    if (tabName === 'scholar') source = 'googlescholar';
-
-    const docs = currentFullData.documents.filter(d => d.source === source);
-    renderDocuments(docs, source);
+    // Filter hanya berdasarkan tab yang diklik (scopus, garuda, atau wos)
+    const docs = currentFullData.documents.filter(d => d.source === tabName);
+    renderDocuments(docs, tabName);
 }
 
 /**
@@ -424,7 +449,18 @@ function renderDocuments(docs, source) {
  * Download Excel
  */
 function downloadExcel() {
-    alert('Export Excel akan diaktifkan setelah data stabil');
+    // Ambil ID SINTA dari dosen yang sedang ditampilkan
+    const sintaId = selectedSintaId || (currentFullData ? currentFullData.sinta_id : null);
+
+    if (!sintaId) {
+        alert('Tidak ada data dosen untuk diunduh');
+        return;
+    }
+
+    // Arahkan ke route export dengan parameter ID SINTA
+    // (Kita akan buat route ini sebentar lagi)
+    const url = `/api/sinta/export-excel-single?id=${sintaId}`;
+    window.location.href = url;
 }
 
 /**

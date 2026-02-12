@@ -6,16 +6,26 @@ import re
 import concurrent.futures
 
 # Konfigurasi
-MAX_PAGES = 5  # Batasi halaman per kategori agar tidak timeout
-CATEGORIES = ['scopus', 'googlescholar', 'garuda', 'wos']
+MAX_PAGES = 10  # Batasi halaman per kategori agar tidak timeout
+CATEGORIES = ['scopus', 'garuda', 'wos']
 
 def get_soup(url):
     headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        # Ambil bagian Cookie-nya saja
+        'Cookie': '_ga=GA1.1.2145658494.1770084967; _ga_YZBSYK71LL=GS2.1.s1770270654$o2$g1$t1770271978$j60$l0$h0; ci_session=g4p0i73nr2n4irt0ampqnegbp4nkhrn5',
+        
+        # User-Agent disesuaikan dengan yang kamu kirim tadi
+        'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Mobile Safari/537.36',
+        
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+        'Referer': 'https://sinta.kemdiktisaintek.go.id/',
+        
     }
     try:
-        response = requests.get(url, headers=headers, verify=False, timeout=15)
+        import time
+        time.sleep(2)
+
+        response = requests.get(url, headers=headers, verify=False, timeout=20)
         response.raise_for_status()
         return BeautifulSoup(response.content, 'html.parser')
     except Exception as e:
@@ -28,7 +38,14 @@ def scrape_documents_page(sinta_id, category, page):
     # WoS uses view=wos
     # Scopus uses view=scopus
     
-    url = f"https://sinta.kemdiktisaintek.go.id/authors/profile/{sinta_id}/?page={page}&view={category}"
+    view_map = {
+        'scopus': 'scopus',
+        'garuda': 'garuda',
+        'wos': 'wos'
+    }
+   # Pastikan menggunakan 'v' hasil dari view_map.get
+    v = view_map.get(category, category)
+    url = f"https://sinta.kemdiktisaintek.go.id/authors/profile/{sinta_id}/?page={page}&view={v}"
     
     soup = get_soup(url)
     docs = []

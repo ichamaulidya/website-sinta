@@ -12,6 +12,10 @@ use InvalidArgumentException;
 use LogicException;
 use Override;
 
+use function is_finite;
+use function max;
+use function min;
+use function strlen;
 use function substr;
 use function trigger_error;
 
@@ -329,7 +333,8 @@ final readonly class BigRational extends BigNumber
      *
      * @param BigNumber|int|float|string $that The divisor.
      *
-     * @throws MathException If the divisor is not a valid number, or is zero.
+     * @throws MathException           If the divisor is not a valid number.
+     * @throws DivisionByZeroException If the divisor is zero.
      *
      * @pure
      */
@@ -374,39 +379,6 @@ final readonly class BigRational extends BigNumber
     }
 
     /**
-     * Limits (clamps) this number between the given minimum and maximum values.
-     *
-     * If the number is lower than $min, returns a copy of $min.
-     * If the number is greater than $max, returns a copy of $max.
-     * Otherwise, returns this number unchanged.
-     *
-     * @param BigNumber|int|float|string $min The minimum. Must be convertible to a BigRational.
-     * @param BigNumber|int|float|string $max The maximum. Must be convertible to a BigRational.
-     *
-     * @throws MathException            If min/max are not convertible to a BigRational.
-     * @throws InvalidArgumentException If min is greater than max.
-     *
-     * @pure
-     */
-    public function clamp(BigNumber|int|float|string $min, BigNumber|int|float|string $max): BigRational
-    {
-        $min = BigRational::of($min);
-        $max = BigRational::of($max);
-
-        if ($min->isGreaterThan($max)) {
-            throw new InvalidArgumentException('Minimum value must be less than or equal to maximum value.');
-        }
-
-        if ($this->isLessThan($min)) {
-            return $min;
-        } elseif ($this->isGreaterThan($max)) {
-            return $max;
-        }
-
-        return $this;
-    }
-
-    /**
      * Returns the reciprocal of this BigRational.
      *
      * The reciprocal has the numerator and denominator swapped.
@@ -420,6 +392,7 @@ final readonly class BigRational extends BigNumber
         return new BigRational($this->denominator, $this->numerator, true);
     }
 
+    #[Override]
     public function negated(): static
     {
         return new BigRational($this->numerator->negated(), $this->denominator, false);
@@ -492,8 +465,25 @@ final readonly class BigRational extends BigNumber
     public function toFloat(): float
     {
         $simplified = $this->simplified();
+        $numeratorFloat = $simplified->numerator->toFloat();
+        $denominatorFloat = $simplified->denominator->toFloat();
 
-        return $simplified->numerator->toFloat() / $simplified->denominator->toFloat();
+        if (is_finite($numeratorFloat) && is_finite($denominatorFloat)) {
+            return $numeratorFloat / $denominatorFloat;
+        }
+
+        // At least one side overflows to INF; use a decimal approximation instead.
+        // We need ~17 significant digits for double precision (we use 20 for some margin). Since $scale controls
+        // decimal places (not significant digits), we subtract the estimated order of magnitude so that large results
+        // use fewer decimal places and small results use more (to look past leading zeros). Clamped to [0, 350] as
+        // doubles range from e-324 to e308 (350 ≈ 324 + 20 significant digits + margin).
+        $magnitude = strlen((string) $simplified->numerator->abs()) - strlen((string) $simplified->denominator);
+        $scale = min(350, max(0, 20 - $magnitude));
+
+        return $simplified->numerator
+            ->toBigDecimal()
+            ->dividedBy($simplified->denominator, $scale, RoundingMode::HalfEven)
+            ->toFloat();
     }
 
     /**

@@ -36,6 +36,12 @@
                     <span>Daftar Dosen</span>
                 </a>
             </li>
+            <li>
+                <a href="{{ route('publications.index') }}" class="{{ Request::routeIs('publications.index') ? 'active' : '' }}">
+                    <span class="icon">📚</span>
+                    <span>Publications</span>
+                </a>
+            </li>
         </ul>
     </aside>
 
