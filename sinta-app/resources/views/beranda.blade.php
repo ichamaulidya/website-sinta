@@ -32,31 +32,10 @@
                 </div>
             </div>
             <div class="export-container">
-                <div class="export-filters">
-                    <select id="exportMonth" class="form-control-sm">
-                        <option value="1">Januari</option>
-                        <option value="2">Februari</option>
-                        <option value="3">Maret</option>
-                        <option value="4">April</option>
-                        <option value="5">Mei</option>
-                        <option value="6">Juni</option>
-                        <option value="7">Juli</option>
-                        <option value="8">Agustus</option>
-                        <option value="9">September</option>
-                        <option value="10">Oktober</option>
-                        <option value="11">November</option>
-                        <option value="12">Desember</option>
-                </select>
-                <select id="exportYear" class="form-control-sm">
-                    @for ($y = date('Y'); $y >= 2020; $y--)
-                        <option value="{{ $y }}">{{ $y }}</option>
-                    @endfor
-                </select>
-    </div>
-    <button class="btn btn-success" onclick="downloadExcel()">
-        <span class="icon">📥</span> Excel
-    </button>
-</div>
+                <button class="btn btn-success" onclick="downloadExcelSingle()">
+                    <span class="icon">📥</span> Download Excel
+                </button>
+            </div>
         </div>
 
         <div class="stats-grid">
@@ -70,8 +49,8 @@
     <div class="card" style="padding: 0;">
         <div class="tabs">
             <button class="tab active" onclick="changeTab('scopus')">Scopus</button>
-            <button class="tab" onclick="changeTab('scholar')">Scholar</button>
             <button class="tab" onclick="changeTab('garuda')">Garuda</button>
+            <button class="tab" onclick="changeTab('wos')">Wos</button>
         </div>
         <div class="tab-content">
             <div class="metrics-grid">
@@ -426,18 +405,16 @@ async function searchDosen() {
 function changeTab(tabName) {
     document.querySelectorAll('.tab').forEach(t => {
         t.classList.remove('active');
-        if (t.textContent.toLowerCase().includes(tabName)) {
+        if (t.textContent.toLowerCase() === tabName.toLowerCase()) {
             t.classList.add('active');
         }
     });
 
     if (!currentFullData?.documents) return;
 
-    let source = tabName;
-    if (tabName === 'scholar') source = 'googlescholar';
-
-    const docs = currentFullData.documents.filter(d => d.source === source);
-    renderDocuments(docs, source);
+    // Filter hanya berdasarkan tab yang diklik (scopus, garuda, atau wos)
+    const docs = currentFullData.documents.filter(d => d.source === tabName);
+    renderDocuments(docs, tabName);
 }
 
 /**
@@ -472,10 +449,17 @@ function renderDocuments(docs, source) {
  * Download Excel
  */
 function downloadExcel() {
-    const month = document.getElementById('exportMonth').value;
-    const year = document.getElementById('exportYear').value;
+    // Ambil ID SINTA dari dosen yang sedang ditampilkan
+    const sintaId = selectedSintaId || (currentFullData ? currentFullData.sinta_id : null);
 
-    const url = `/api/sinta/export-excel?month=${month}&year=${year}`
+    if (!sintaId) {
+        alert('Tidak ada data dosen untuk diunduh');
+        return;
+    }
+
+    // Arahkan ke route export dengan parameter ID SINTA
+    // (Kita akan buat route ini sebentar lagi)
+    const url = `/api/sinta/export-excel-single?id=${sintaId}`;
     window.location.href = url;
 }
 
