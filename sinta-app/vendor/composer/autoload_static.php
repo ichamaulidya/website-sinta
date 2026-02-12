@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitf48ffe1bb7b037f2a655d7ee4e7e733a
+class ComposerStaticInit7358a907709c025a3345794ffb9f93df
 {
     public static $files = array (
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
@@ -360,8 +360,8 @@ class ComposerStaticInitf48ffe1bb7b037f2a655d7ee4e7e733a
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-factory/src',
-            1 => __DIR__ . '/..' . '/psr/http-message/src',
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
+            1 => __DIR__ . '/..' . '/psr/http-factory/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -397,8 +397,8 @@ class ComposerStaticInitf48ffe1bb7b037f2a655d7ee4e7e733a
         ),
         'Nette\\' => 
         array (
-            0 => __DIR__ . '/..' . '/nette/schema/src',
-            1 => __DIR__ . '/..' . '/nette/utils/src',
+            0 => __DIR__ . '/..' . '/nette/utils/src',
+            1 => __DIR__ . '/..' . '/nette/schema/src',
         ),
         'Monolog\\' => 
         array (
@@ -418,8 +418,8 @@ class ComposerStaticInitf48ffe1bb7b037f2a655d7ee4e7e733a
         ),
         'League\\Uri\\' => 
         array (
-            0 => __DIR__ . '/..' . '/league/uri',
-            1 => __DIR__ . '/..' . '/league/uri-interfaces',
+            0 => __DIR__ . '/..' . '/league/uri-interfaces',
+            1 => __DIR__ . '/..' . '/league/uri',
         ),
         'League\\MimeTypeDetection\\' => 
         array (
@@ -580,6 +580,7 @@ class ComposerStaticInitf48ffe1bb7b037f2a655d7ee4e7e733a
     );
 
     public static $classMap = array (
+        'App\\Exports\\PublicationsExport' => __DIR__ . '/../..' . '/app/Exports/PublicationsExport.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\DashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/DashboardController.php',
         'App\\Http\\Controllers\\DosenController' => __DIR__ . '/../..' . '/app/Http/Controllers/DosenController.php',
@@ -7856,10 +7857,10 @@ class ComposerStaticInitf48ffe1bb7b037f2a655d7ee4e7e733a
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitf48ffe1bb7b037f2a655d7ee4e7e733a::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitf48ffe1bb7b037f2a655d7ee4e7e733a::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitf48ffe1bb7b037f2a655d7ee4e7e733a::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitf48ffe1bb7b037f2a655d7ee4e7e733a::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit7358a907709c025a3345794ffb9f93df::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit7358a907709c025a3345794ffb9f93df::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit7358a907709c025a3345794ffb9f93df::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit7358a907709c025a3345794ffb9f93df::$classMap;
 
         }, null, ClassLoader::class);
     }

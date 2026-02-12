@@ -31,7 +31,32 @@
                     <p class="sinta-id" id="dosenSintaId"></p>
                 </div>
             </div>
-            <button class="btn btn-success" onclick="downloadExcel()">Download Excel</button>
+            <div class="export-container">
+                <div class="export-filters">
+                    <select id="exportMonth" class="form-control-sm">
+                        <option value="1">Januari</option>
+                        <option value="2">Februari</option>
+                        <option value="3">Maret</option>
+                        <option value="4">April</option>
+                        <option value="5">Mei</option>
+                        <option value="6">Juni</option>
+                        <option value="7">Juli</option>
+                        <option value="8">Agustus</option>
+                        <option value="9">September</option>
+                        <option value="10">Oktober</option>
+                        <option value="11">November</option>
+                        <option value="12">Desember</option>
+                </select>
+                <select id="exportYear" class="form-control-sm">
+                    <?php for($y = date('Y'); $y >= 2020; $y--): ?>
+                        <option value="<?php echo e($y); ?>"><?php echo e($y); ?></option>
+                    <?php endfor; ?>
+                </select>
+    </div>
+    <button class="btn btn-success" onclick="downloadExcel()">
+        <span class="icon">📥</span> Excel
+    </button>
+</div>
         </div>
 
         <div class="stats-grid">
@@ -79,6 +104,29 @@
         grid-template-columns: 1fr auto;
         gap: 15px;
         align-items: end;
+    }
+
+    .export-container {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .export-filters {
+        display: flex;
+        gap: 5px;
+    }
+
+    .form-control-sm {
+        padding: 8px;
+        border: 1px solid #d1d5db;
+        border-radius: 6px;
+        font-size: 0.875rem;
+        outline: none;
+    }
+
+    .form-control-sm:focus {
+        border-color: #10b981;
     }
 
     .dropdown {
@@ -424,7 +472,11 @@ function renderDocuments(docs, source) {
  * Download Excel
  */
 function downloadExcel() {
-    alert('Export Excel akan diaktifkan setelah data stabil');
+    const month = document.getElementById('exportMonth').value;
+    const year = document.getElementById('exportYear').value;
+
+    const url = `/api/sinta/export-excel?month=${month}&year=${year}`
+    window.location.href = url;
 }
 
 /**
