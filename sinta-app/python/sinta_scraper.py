@@ -11,8 +11,16 @@ CATEGORIES = ['scopus', 'googlescholar', 'garuda', 'wos']
 
 def get_soup(url):
     headers = {
+
         # Cookie dihapus untuk keamanan dan agar tidak bergantung pada login
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+
+        # Ambil bagian Cookie-nya saja
+        'Cookie': '_ga=GA1.1.2145658494.1770084967; _ga_YZBSYK71LL=GS2.1.s1770270654$o2$g1$t1770271978$j60$l0$h0; ci_session=tqsqapv5jnaarakcdd3v45ue2fv17h2t',
+        
+        # User-Agent disesuaikan dengan yang kamu kirim tadi
+        'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Mobile Safari/537.36',
+        
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
         'Referer': 'https://sinta.kemdiktisaintek.go.id/',
     }
