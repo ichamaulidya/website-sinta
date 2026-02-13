@@ -101,8 +101,8 @@
                 <tr>
                     <th>Dosen</th>
                     <th>Judul</th>
-                    <th>Tahun & Sumber</th>
-                    <th>Sitasi</th>
+                    <th>Sumber</th>
+                    <th>Tahun</th>
                     <th>Tgl Scrape</th>
                 </tr>
             </thead>
@@ -128,37 +128,15 @@
         const json = await res.json();
         const tbody = document.getElementById('pubTableBody');
         
-        if (json.data.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 20px;">Belum ada data publikasi terkumpul. Silakan lakukan pencarian di menu Cari Data.</td></tr>';
-            return;
-        }
-        
-        tbody.innerHTML = json.data.map(d => {
-            let sourceColor = 'badge-blue';
-            if(d.source === 'googlescholar') sourceColor = 'badge-green';
-            if(d.source === 'scopus') sourceColor = 'badge-purple';
-            
-            return `
+        tbody.innerHTML = json.data.map(d => `
             <tr>
                 <td><strong>${d.nama_dosen}</strong></td>
-                <td style="font-size: 0.9rem;">
-                    ${d.title}
-                    <br>
-                    <small class="text-muted">${d.journal || ''}</small>
-                </td>
-                <td>
-                    <div style="margin-bottom: 5px;"><strong>${d.year}</strong></div>
-                    <span class="badge ${sourceColor}">${d.source.toUpperCase()}</span>
-                </td>
-                <td>
-                    <div style="font-size: 1.1rem; font-weight: bold; color: #2563eb;">
-                        ${d.cited} 
-                    </div>
-                    <small style="color: #6b7280;">Sitasi di ${d.source.charAt(0).toUpperCase() + d.source.slice(1)}</small>
-                </td>
+                <td style="font-size: 0.9rem;">${d.title}</td>
+                <td><span class="badge badge-blue">${d.source.toUpperCase()}</span></td>
+                <td>${d.year}</td>
                 <td>${new Date(d.created_at).toLocaleDateString('id-ID')}</td>
             </tr>
-        `}).join('');
+        `).join('');
     }
 
     // Fungsi export yang dipanggil dari dalam modal
