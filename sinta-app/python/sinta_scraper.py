@@ -198,5 +198,7 @@ if __name__ == "__main__":
         target_id = sys.argv[1]
     
     result = scrape_sinta_profile(target_id)
+
     print(json.dumps(result, indent=2))
     
+
