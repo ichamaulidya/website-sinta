@@ -1000,3 +1000,23 @@
 #13 C:/Users/Siti Farah Fakhirah/Documents/projects/website-sinta/sinta-app/artisan(16): Illuminate/Foundation/Application->handleCommand(Object(Symfony/Component/Console/Input/ArgvInput))
 #14 {main}
 "} 
+[2026-02-13 04:49:24] local.ERROR: syntax error, unexpected token "<<", expecting ")" {"exception":"[object] (ParseError(code: 0): syntax error, unexpected token \"<<\", expecting \")\" at C:/Users/Siti Farah Fakhirah/Documents/projects/website-sinta/sinta-app/vendor/composer/installed.php:6)
+[stacktrace]
+#0 C:/Users/Siti Farah Fakhirah/Documents/projects/website-sinta/sinta-app/vendor/composer/InstalledVersions.php(150): Composer/InstalledVersions::getInstalled()
+#1 C:/Users/Siti Farah Fakhirah/Documents/projects/website-sinta/sinta-app/vendor/composer/InstalledVersions.php(134): Composer/InstalledVersions::getVersionRanges('psr/simple-cach...')
+#2 C:/Users/Siti Farah Fakhirah/Documents/projects/website-sinta/sinta-app/vendor/maatwebsite/excel/src/Cache/CacheManager.php(43): Composer/InstalledVersions::satisfies(Object(Composer/Semver/VersionParser), 'psr/simple-cach...', Object(Composer/Semver/Constraint/MultiConstraint))
+#3 C:/Users/Siti Farah Fakhirah/Documents/projects/website-sinta/sinta-app/vendor/laravel/framework/src/Illuminate/Support/Manager.php(101): Maatwebsite/Excel/Cache/CacheManager->createMemoryDriver()
+#4 C:/Users/Siti Farah Fakhirah/Documents/projects/website-sinta/sinta-app/vendor/laravel/framework/src/Illuminate/Support/Manager.php(78): Illuminate/Support/Manager->createDriver('memory')
+#5 C:/Users/Siti Farah Fakhirah/Documents/projects/website-sinta/sinta-app/vendor/maatwebsite/excel/src/SettingsProvider.php(31): Illuminate/Support/Manager->driver()
+#6 C:/Users/Siti Farah Fakhirah/Documents/projects/website-sinta/sinta-app/vendor/maatwebsite/excel/src/SettingsProvider.php(25): Maatwebsite/Excel/SettingsProvider->configureCellCaching()
+#7 C:/Users/Siti Farah Fakhirah/Documents/projects/website-sinta/sinta-app/vendor/maatwebsite/excel/src/ExcelServiceProvider.php(52): Maatwebsite/Excel/SettingsProvider->provide()
+#8 C:/Users/Siti Farah Fakhirah/Documents/projects/website-sinta/sinta-app/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1194): Maatwebsite/Excel/ExcelServiceProvider->Maatwebsite/Excel/{closure}(Object(Illuminate/Foundation/Application))
+#9 C:/Users/Siti Farah Fakhirah/Documents/projects/website-sinta/sinta-app/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1137): Illuminate/Foundation/Application->fireAppCallbacks(Array)
+#10 C:/Users/Siti Farah Fakhirah/Documents/projects/website-sinta/sinta-app/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/BootProviders.php(17): Illuminate/Foundation/Application->boot()
+#11 C:/Users/Siti Farah Fakhirah/Documents/projects/website-sinta/sinta-app/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(342): Illuminate/Foundation/Bootstrap/BootProviders->bootstrap(Object(Illuminate/Foundation/Application))
+#12 C:/Users/Siti Farah Fakhirah/Documents/projects/website-sinta/sinta-app/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(494): Illuminate/Foundation/Application->bootstrapWith(Array)
+#13 C:/Users/Siti Farah Fakhirah/Documents/projects/website-sinta/sinta-app/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(196): Illuminate/Foundation/Console/Kernel->bootstrap()
+#14 C:/Users/Siti Farah Fakhirah/Documents/projects/website-sinta/sinta-app/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate/Foundation/Console/Kernel->handle(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#15 C:/Users/Siti Farah Fakhirah/Documents/projects/website-sinta/sinta-app/artisan(16): Illuminate/Foundation/Application->handleCommand(Object(Symfony/Component/Console/Input/ArgvInput))
+#16 {main}
+"} 
