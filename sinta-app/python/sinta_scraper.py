@@ -7,23 +7,18 @@ import concurrent.futures
 
 # Konfigurasi
 MAX_PAGES = 10  # Batasi halaman per kategori agar tidak timeout
-CATEGORIES = ['scopus', 'garuda', 'wos']
+CATEGORIES = ['scopus', 'googlescholar', 'garuda', 'wos']
 
 def get_soup(url):
     headers = {
-        # Ambil bagian Cookie-nya saja
-        'Cookie': '_ga=GA1.1.2145658494.1770084967; _ga_YZBSYK71LL=GS2.1.s1770270654$o2$g1$t1770271978$j60$l0$h0; ci_session=g4p0i73nr2n4irt0ampqnegbp4nkhrn5',
-        
-        # User-Agent disesuaikan dengan yang kamu kirim tadi
-        'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Mobile Safari/537.36',
-        
+        # Cookie dihapus untuk keamanan dan agar tidak bergantung pada login
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
         'Referer': 'https://sinta.kemdiktisaintek.go.id/',
-        
     }
     try:
         import time
-        time.sleep(2)
+        time.sleep(1) # Delay sedikit agar tidak terkena rate limit
 
         response = requests.get(url, headers=headers, verify=False, timeout=20)
         response.raise_for_status()
@@ -40,6 +35,7 @@ def scrape_documents_page(sinta_id, category, page):
     
     view_map = {
         'scopus': 'scopus',
+        'googlescholar': 'googlescholar',
         'garuda': 'garuda',
         'wos': 'wos'
     }
@@ -55,7 +51,6 @@ def scrape_documents_page(sinta_id, category, page):
 
     doc_items = soup.find_all('div', class_='ar-list-item')
     
-    # If empty, check if it's a "No data" message or just empty list
     if not doc_items:
         return docs
         
@@ -68,14 +63,13 @@ def scrape_documents_page(sinta_id, category, page):
             doc['title'] = title_tag.text.strip()
             doc['link'] = title_tag.get('href')
         else:
-            # Fallback for some items that might not have link
             title_div = item.select_one('.ar-title')
             if title_div:
                  doc['title'] = title_div.text.strip()
             else:
                  continue
         
-        # Meta info
+        # Meta info (Quartile/Type)
         quartile = item.select_one('.ar-quartile')
         if quartile:
             doc['type'] = quartile.text.strip()
@@ -89,10 +83,19 @@ def scrape_documents_page(sinta_id, category, page):
         if year_tag:
             doc['year'] = year_tag.text.strip()
         
-        # Cited
+        # Cited - Ambil angka saja jika memang informasi sitasi
         cited_tag = item.select_one('.ar-cited')
         if cited_tag:
-            doc['cited'] = cited_tag.text.strip()
+            cited_text = cited_tag.text.strip()
+            # Jika mengandung "DOI", itu bukan jumlah sitasi
+            if "DOI" in cited_text:
+                doc['cited'] = "0"
+            else:
+                # Extract number using regex
+                match = re.search(r'\d+', cited_text)
+                doc['cited'] = match.group() if match else "0"
+        else:
+            doc['cited'] = "0"
             
         docs.append(doc)
         

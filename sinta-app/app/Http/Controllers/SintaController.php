@@ -52,16 +52,19 @@ class SintaController extends Controller
                     Nama AS nama,
                     Sinta_ID AS sinta_id,
                     NPI AS npi,
-                    NIDN AS nidn
+                    NIDN AS nidn,
+                    Bagian AS departemen
                 ')
-                ->whereNotNull('Sinta_ID')
-                ->where('Sinta_ID', '!=', '')
+                // Jangan batasi hanya yang punya Sinta_ID agar user tahu datanya ada
+                // ->whereNotNull('Sinta_ID')
+                // ->where('Sinta_ID', '!=', '')
                 ->when($q, function ($query) use ($q) {
                     $query->where('Nama', 'LIKE', "%{$q}%")
                         ->orWhere('NPI', 'LIKE', "%{$q}%")
-                        ->orWhere('NIDN', 'LIKE', "%{$q}%");
+                        ->orWhere('NIDN', 'LIKE', "%{$q}%")
+                        ->orWhere('Sinta_ID', 'LIKE', "%{$q}%");
                 })
-                ->limit(10)
+                ->limit(20)
                 ->get();
 
             return response()->json([
@@ -117,10 +120,10 @@ class SintaController extends Controller
         }
 
         // PATH PYTHON (Windows)
-        $python = 'python'; // ganti 'py' kalau python tidak dikenali
+        $python = 'python'; 
 
         // PATH FILE PYTHON (ABSOLUTE, PALING AMAN)
-        $script = base_path('/python/sinta_scraper.py');
+        $script = base_path('python/sinta_scraper.py');
 
         if (!file_exists($script)) {
             return response()->json([
@@ -129,8 +132,10 @@ class SintaController extends Controller
             ], 500);
         }
 
-        // Escape path (PENTING DI WINDOWS)
-        $command = escapeshellcmd("$python \"$script\" $id");
+        // Gunakan escapeshellarg untuk masing-masing argumen dan arahkan stderr ke stdout
+        $command = $python . ' ' . escapeshellarg($script) . ' ' . escapeshellarg($id) . ' 2>&1';
+        
+        Log::info("Running command: " . $command);
 
         $output = shell_exec($command);
 
@@ -142,6 +147,15 @@ class SintaController extends Controller
         }
 
         $json = json_decode($output, true);
+
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            Log::error("Python output is not valid JSON: " . $output);
+            return response()->json([
+                'success' => false,
+                'error' => 'Output scraper tidak valid (bukan JSON)',
+                'debug_output' => $output
+            ], 500);
+        }
 
         if (isset($json['documents']) && is_array($json['documents'])) {
             foreach ($json['documents'] as $doc) {

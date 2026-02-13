@@ -32,31 +32,10 @@
                 </div>
             </div>
             <div class="export-container">
-                <div class="export-filters">
-                    <select id="exportMonth" class="form-control-sm">
-                        <option value="1">Januari</option>
-                        <option value="2">Februari</option>
-                        <option value="3">Maret</option>
-                        <option value="4">April</option>
-                        <option value="5">Mei</option>
-                        <option value="6">Juni</option>
-                        <option value="7">Juli</option>
-                        <option value="8">Agustus</option>
-                        <option value="9">September</option>
-                        <option value="10">Oktober</option>
-                        <option value="11">November</option>
-                        <option value="12">Desember</option>
-                </select>
-                <select id="exportYear" class="form-control-sm">
-                    <?php for($y = date('Y'); $y >= 2020; $y--): ?>
-                        <option value="<?php echo e($y); ?>"><?php echo e($y); ?></option>
-                    <?php endfor; ?>
-                </select>
-    </div>
-    <button class="btn btn-success" onclick="downloadExcel()">
-        <span class="icon">📥</span> Excel
-    </button>
-</div>
+                <button class="btn btn-success" onclick="downloadExcelSingle()">
+                    <span class="icon">📥</span> Download Excel
+                </button>
+            </div>
         </div>
 
         <div class="stats-grid">
@@ -70,8 +49,8 @@
     <div class="card" style="padding: 0;">
         <div class="tabs">
             <button class="tab active" onclick="changeTab('scopus')">Scopus</button>
-            <button class="tab" onclick="changeTab('scholar')">Scholar</button>
             <button class="tab" onclick="changeTab('garuda')">Garuda</button>
+            <button class="tab" onclick="changeTab('wos')">Wos</button>
         </div>
         <div class="tab-content">
             <div class="metrics-grid">
@@ -332,10 +311,11 @@ searchInput.addEventListener('input', async function () {
 
         dropdownMenu.innerHTML = json.data.map(d => `
             <div class="dropdown-item"
-                onclick="selectDosen('${d.sinta_id}', '${escapeHtml(d.nama)}')">
+                onclick="selectDosen('${d.sinta_id || ''}', '${escapeHtml(d.nama)}')">
                 <div class="dropdown-item-title">${escapeHtml(d.nama)}</div>
                 <div class="dropdown-item-nip">
-                    SINTA ID: ${d.sinta_id} | NIDN: ${d.nidn ?? '-'}
+                    ${d.sinta_id ? `SINTA ID: ${d.sinta_id}` : '<span style="color:red">SINTA ID Belum Ada</span>'} 
+                    | NIDN: ${d.nidn ?? '-'} | Dept: ${d.departemen ?? '-'}
                 </div>
             </div>
         `).join('');
@@ -350,6 +330,12 @@ searchInput.addEventListener('input', async function () {
  * PILIH DOSEN DARI DROPDOWN
  */
 function selectDosen(sintaId, nama) {
+    if (!sintaId) {
+        alert('Dosen ini belum memiliki SINTA ID di database.');
+        searchInput.value = nama;
+        selectedSintaId = null;
+        return;
+    }
     selectedSintaId = sintaId;
     searchInput.value = nama;
     dropdownMenu.classList.remove('show');
@@ -381,9 +367,18 @@ async function searchDosen() {
 
     try {
         const res = await fetch(`/api/sinta/scrape?id=${idToSearch}`);
+        
+        // Cek jika response bukan JSON
+        const contentType = res.headers.get("content-type");
+        if (!contentType || !contentType.includes("application/json")) {
+            const text = await res.text();
+            console.error('Non-JSON response:', text);
+            throw new Error('Server tidak mengembalikan JSON. Kemungkinan terjadi error di server.');
+        }
+
         const json = await res.json();
 
-        if (!json.success) throw new Error(json.error);
+        if (!json.success) throw new Error(json.error || 'Terjadi kesalahan saat mengambil data');
 
         const data = json.data;
         currentFullData = data;
@@ -426,18 +421,16 @@ async function searchDosen() {
 function changeTab(tabName) {
     document.querySelectorAll('.tab').forEach(t => {
         t.classList.remove('active');
-        if (t.textContent.toLowerCase().includes(tabName)) {
+        if (t.textContent.toLowerCase() === tabName.toLowerCase()) {
             t.classList.add('active');
         }
     });
 
     if (!currentFullData?.documents) return;
 
-    let source = tabName;
-    if (tabName === 'scholar') source = 'googlescholar';
-
-    const docs = currentFullData.documents.filter(d => d.source === source);
-    renderDocuments(docs, source);
+    // Filter hanya berdasarkan tab yang diklik (scopus, garuda, atau wos)
+    const docs = currentFullData.documents.filter(d => d.source === tabName);
+    renderDocuments(docs, tabName);
 }
 
 /**
@@ -472,10 +465,17 @@ function renderDocuments(docs, source) {
  * Download Excel
  */
 function downloadExcel() {
-    const month = document.getElementById('exportMonth').value;
-    const year = document.getElementById('exportYear').value;
+    // Ambil ID SINTA dari dosen yang sedang ditampilkan
+    const sintaId = selectedSintaId || (currentFullData ? currentFullData.sinta_id : null);
 
-    const url = `/api/sinta/export-excel?month=${month}&year=${year}`
+    if (!sintaId) {
+        alert('Tidak ada data dosen untuk diunduh');
+        return;
+    }
+
+    // Arahkan ke route export dengan parameter ID SINTA
+    // (Kita akan buat route ini sebentar lagi)
+    const url = `/api/sinta/export-excel-single?id=${sintaId}`;
     window.location.href = url;
 }
 
