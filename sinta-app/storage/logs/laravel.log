@@ -1020,3 +1020,45 @@
 #15 C:/Users/Siti Farah Fakhirah/Documents/projects/website-sinta/sinta-app/artisan(16): Illuminate/Foundation/Application->handleCommand(Object(Symfony/Component/Console/Input/ArgvInput))
 #16 {main}
 "} 
+[2026-02-13 06:41:43] local.ERROR: Autocomplete dosen error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'sinta_web.dosen' doesn't exist (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %te% or `NPI` LIKE %te% or `NIDN` LIKE %te% limit 10)  
+[2026-02-13 06:41:43] local.ERROR: Autocomplete dosen error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'sinta_web.dosen' doesn't exist (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %tek% or `NPI` LIKE %tek% or `NIDN` LIKE %tek% limit 10)  
+[2026-02-13 06:41:44] local.ERROR: Autocomplete dosen error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'sinta_web.dosen' doesn't exist (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %teka% or `NPI` LIKE %teka% or `NIDN` LIKE %teka% limit 10)  
+[2026-02-13 06:41:44] local.ERROR: Autocomplete dosen error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'sinta_web.dosen' doesn't exist (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %tekad% or `NPI` LIKE %tekad% or `NIDN` LIKE %tekad% limit 10)  
+[2026-02-13 06:43:09] local.ERROR: Autocomplete dosen error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'sinta_web.dosen' doesn't exist (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ad% or `NPI` LIKE %ad% or `NIDN` LIKE %ad% limit 10)  
+[2026-02-13 06:43:10] local.ERROR: Autocomplete dosen error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'sinta_web.dosen' doesn't exist (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %adi% or `NPI` LIKE %adi% or `NIDN` LIKE %adi% limit 10)  
+[2026-02-13 06:43:11] local.ERROR: Autocomplete dosen error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'sinta_web.dosen' doesn't exist (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sinta_web, SQL: select 
+                    Nama AS nama,
+                    Sinta_ID AS sinta_id,
+                    NPI AS npi,
+                    NIDN AS nidn
+                 from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ad% or `NPI` LIKE %ad% or `NIDN` LIKE %ad% limit 10)  
