@@ -22,11 +22,17 @@ class DashboardController extends Controller
     public function getStats()
     {
         try {
+            $totalDosen = Dosen::count();
+            $totalPublikasi = \App\Models\Publication::count();
+            $totalSitasi = \App\Models\Publication::sum('cited');
+            
+            // H-Index dan stats lainnya mungkin belum ada di schema ini,
+            // kita set 0 dulu agar tidak error
             $stats = [
-                'totalDosen' => Dosen::count(),
-                'totalPublikasi' => Dosen::sum('jumlah_publikasi') ?? 0,
-                'totalSitasi' => Dosen::sum('total_sitasi') ?? 0,
-                'avgHIndex' => round(Dosen::avg('h_index') ?? 0, 1)
+                'totalDosen' => $totalDosen,
+                'totalPublikasi' => $totalPublikasi,
+                'totalSitasi' => $totalSitasi,
+                'avgHIndex' => 0 
             ];
 
             return response()->json([
@@ -43,20 +49,22 @@ class DashboardController extends Controller
     }
 
     /**
-     * Get top 10 dosen berdasarkan SINTA score
+     * Get top 10 dosen berdasarkan jumlah publikasi
      */
     public function getTopDosen()
     {
         try {
-            $topDosen = Dosen::select(
-                    'nama', 
-                    'departemen', 
-                    'sinta_score', 
-                    'h_index', 
-                    'jumlah_publikasi as publikasi'
+            // Karena sinta_score tidak ada di tabel dosen, 
+            // kita ranking berdasarkan jumlah publikasi di tabel publications
+            $topDosen = \App\Models\Publication::join('dosen', 'publications.sinta_id', '=', 'dosen.Sinta_ID')
+                ->select(
+                    'dosen.Nama as nama',
+                    'dosen.Bagian as departemen',
+                    DB::raw('COUNT(publications.id) as publikasi'),
+                    DB::raw('SUM(publications.cited) as total_sitasi')
                 )
-                ->whereNotNull('sinta_score')
-                ->orderBy('sinta_score', 'desc')
+                ->groupBy('dosen.Sinta_ID', 'dosen.Nama', 'dosen.Bagian')
+                ->orderBy('publikasi', 'desc')
                 ->limit(10)
                 ->get();
 
@@ -80,15 +88,19 @@ class DashboardController extends Controller
     {
         try {
             $stats = Dosen::select(
-                    'departemen',
-                    DB::raw('COUNT(*) as jumlah_dosen'),
-                    DB::raw('COALESCE(SUM(jumlah_publikasi), 0) as total_publikasi'),
-                    DB::raw('COALESCE(AVG(sinta_score), 0) as avg_sinta_score')
+                    'Bagian as departemen',
+                    DB::raw('COUNT(*) as jumlah_dosen')
                 )
-                ->whereNotNull('departemen')
-                ->groupBy('departemen')
-                ->orderBy('avg_sinta_score', 'desc')
+                ->groupBy('Bagian')
                 ->get();
+            
+            // Tambahkan data publikasi per departemen jika perlu
+            foreach($stats as $s) {
+                $s->total_publikasi = \App\Models\Publication::join('dosen', 'publications.sinta_id', '=', 'dosen.Sinta_ID')
+                    ->where('dosen.Bagian', $s->departemen)
+                    ->count();
+                $s->avg_sinta_score = 0; // Kolom belum ada
+            }
 
             return response()->json([
                 'success' => true,

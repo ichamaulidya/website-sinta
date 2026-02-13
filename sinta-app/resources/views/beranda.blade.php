@@ -311,10 +311,11 @@ searchInput.addEventListener('input', async function () {
 
         dropdownMenu.innerHTML = json.data.map(d => `
             <div class="dropdown-item"
-                onclick="selectDosen('${d.sinta_id}', '${escapeHtml(d.nama)}')">
+                onclick="selectDosen('${d.sinta_id || ''}', '${escapeHtml(d.nama)}')">
                 <div class="dropdown-item-title">${escapeHtml(d.nama)}</div>
                 <div class="dropdown-item-nip">
-                    SINTA ID: ${d.sinta_id} | NIDN: ${d.nidn ?? '-'}
+                    ${d.sinta_id ? `SINTA ID: ${d.sinta_id}` : '<span style="color:red">SINTA ID Belum Ada</span>'} 
+                    | NIDN: ${d.nidn ?? '-'} | Dept: ${d.departemen ?? '-'}
                 </div>
             </div>
         `).join('');
@@ -329,6 +330,12 @@ searchInput.addEventListener('input', async function () {
  * PILIH DOSEN DARI DROPDOWN
  */
 function selectDosen(sintaId, nama) {
+    if (!sintaId) {
+        alert('Dosen ini belum memiliki SINTA ID di database.');
+        searchInput.value = nama;
+        selectedSintaId = null;
+        return;
+    }
     selectedSintaId = sintaId;
     searchInput.value = nama;
     dropdownMenu.classList.remove('show');
@@ -360,9 +367,18 @@ async function searchDosen() {
 
     try {
         const res = await fetch(`/api/sinta/scrape?id=${idToSearch}`);
+        
+        // Cek jika response bukan JSON
+        const contentType = res.headers.get("content-type");
+        if (!contentType || !contentType.includes("application/json")) {
+            const text = await res.text();
+            console.error('Non-JSON response:', text);
+            throw new Error('Server tidak mengembalikan JSON. Kemungkinan terjadi error di server.');
+        }
+
         const json = await res.json();
 
-        if (!json.success) throw new Error(json.error);
+        if (!json.success) throw new Error(json.error || 'Terjadi kesalahan saat mengambil data');
 
         const data = json.data;
         currentFullData = data;

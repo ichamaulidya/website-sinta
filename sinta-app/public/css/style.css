@@ -487,6 +487,16 @@ tbody tr:hover {
     color: #1e3a8a; 
 }
 
+.badge-green { 
+    background-color: #dcfce7; 
+    color: #166534; 
+}
+
+.badge-purple { 
+    background-color: #f3e8ff; 
+    color: #6b21a8; 
+}
+
 /* UTILITY */
 .hidden { 
     display: none; 
