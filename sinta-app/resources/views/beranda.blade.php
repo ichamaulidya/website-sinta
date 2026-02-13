@@ -405,7 +405,7 @@ async function searchDosen() {
 function changeTab(tabName) {
     document.querySelectorAll('.tab').forEach(t => {
         t.classList.remove('active');
-        if (t.textContent.toLowerCase() === tabName.toLowerCase()) {
+        if (t.textContent.trim().toLowerCase() === tabName.toLowerCase()) {
             t.classList.add('active');
         }
     });
@@ -428,21 +428,29 @@ function renderDocuments(docs, source) {
         return;
     }
 
-    tbody.innerHTML = docs.map(d => `
-        <tr>
-            <td>
-                <strong>${escapeHtml(d.title)}</strong><br>
-                <small>${escapeHtml(d.journal ?? '')}</small>
-                ${
-                    (source === 'scopus' || source === 'garuda') && d.type
+    tbody.innerHTML = docs.map(d => {
+        // PERBAIKAN: Jika ada 'link' dari SINTA, buat angka sitasi jadi biru dan bisa diklik
+        const citationDisplay = d.link 
+            ? `<a href="${d.link}" target="_blank" class="badge badge-blue" title="Klik untuk lihat penyitasi di sumber asli" style="text-decoration:none; cursor:pointer;">
+                 ${d.cited ?? '0'} ↗️
+               </a>`
+            : `<span class="badge badge-blue">${d.cited ?? '0'}</span>`;
+
+        return `
+            <tr>
+                <td>
+                    <strong>${escapeHtml(d.title)}</strong><br>
+                    <small>${escapeHtml(d.journal ?? '')}</small>
+                    ${(source === 'scopus' || source === 'garuda') && d.type
                         ? `<br><br><small class="badge badge-orange">${escapeHtml(d.type)}</small>`
                         : ''
-                }
-            </td>
-            <td>${d.year ?? '-'}</td>
-            <td><span class="badge badge-blue">${d.cited ?? '0'}</span></td>
-        </tr>
-    `).join('');
+                    }
+                </td>
+                <td>${d.year ?? '-'}</td>
+                <td style="text-align:center">${citationDisplay}</td>
+            </tr>
+        `;
+    }).join('');
 }
 
 /**
