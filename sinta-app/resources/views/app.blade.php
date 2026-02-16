@@ -12,10 +12,10 @@
     @stack('styles')
 </head>
 <body>
-    <!-- SIDEBAR -->
+    <!-- SIDEBAR -->s
     <aside class="sidebar">
         <div class="sidebar-brand">
-            <div class="sidebar-brand-logo"><img src="{{ asset('images/logo_sinta.png') }}" alt="Logo SINTA" class="logo"></div>
+            <div class="sidebar-brand-logo"><img src="{{ asset('images/logo_bravo.png') }}" alt="Logo SINTA" class="logo"></div>
         </div>
         <ul class="sidebar-menu">
             <li>
