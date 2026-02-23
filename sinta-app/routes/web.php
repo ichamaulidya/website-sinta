@@ -20,6 +20,7 @@ Route::get('/cari-data', [SintaController::class, 'beranda'])->name('beranda');
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/daftar-dosen', [DosenController::class, 'index'])->name('daftar-dosen');
 
+
 // Tambahkan Route Halaman Baru di sini
 Route::get('/publications', function () {
     return view('publications');
@@ -51,6 +52,7 @@ Route::prefix('api/dashboard')->group(function () {
     Route::get('/stats', [DashboardController::class, 'getStats']);
     Route::get('/top-dosen', [DashboardController::class, 'getTopDosen']);
     Route::get('/departemen-stats', [DashboardController::class, 'getDepartemenStats']);
+    Route::get('/publication-trend', [DashboardController::class, 'getPublicationTrend']);
 });
 
 // ===== API PUBLICATIONS (DATA TERKUMPUL) =====
