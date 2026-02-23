@@ -6,6 +6,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'SINTA Dashboard') - Sekolah Vokasi IPB</title>
     
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
     <!-- CSS -->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     
