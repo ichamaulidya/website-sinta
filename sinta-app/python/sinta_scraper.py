@@ -31,7 +31,53 @@ def get_soup(url):
     except Exception as e:
         return None
 
-def scrape_documents_page(sinta_id, category, page):
+def get_google_scholar_citation(sinta_id, garuda_title):
+    """
+    Mencari sitasi dari Google Scholar berdasarkan judul dokumen
+    """
+    try:
+        # Akses halaman Google Scholar view
+        url = f"https://sinta.kemdiktisaintek.go.id/authors/profile/{sinta_id}/?view=googlescholar"
+        soup = get_soup(url)
+        
+        if not soup:
+            return None
+        
+        # Cari dokumen dengan judul yang sama
+        doc_items = soup.find_all('div', class_='ar-list-item')
+        
+        for item in doc_items:
+            # Ambil judul dari item Google Scholar
+            title_tag = item.select_one('.ar-title a') or item.select_one('.ar-title')
+            if not title_tag:
+                continue
+                
+            gs_title = title_tag.text.strip()
+            
+            # Cek apakah judul cocok (case-insensitive dan normalisasi whitespace)
+            if normalize_title(gs_title) == normalize_title(garuda_title):
+                # Ambil data sitasi dari Google Scholar
+                cited_tag = item.select_one('.ar-cited')
+                if cited_tag:
+                    return cited_tag.text.strip()
+        
+        return None
+    except Exception as e:
+        print(f"Error fetching Google Scholar citation: {e}", file=sys.stderr)
+        return None
+
+def normalize_title(title):
+    """
+    Normalisasi judul untuk perbandingan
+    """
+    if not title:
+        return ""
+    # Lowercase, hapus whitespace berlebih, hapus karakter spesial
+    title = title.lower().strip()
+    title = re.sub(r'\s+', ' ', title)
+    return title
+
+def scrape_documents_page(sinta_id, category, page, gs_citations_cache=None):
     # Fix URL logic:
     # Scholar uses view=googlescholar
     # Garuda uses view=garuda
@@ -43,7 +89,7 @@ def scrape_documents_page(sinta_id, category, page):
         'garuda': 'garuda',
         'wos': 'wos'
     }
-   # Pastikan menggunakan 'v' hasil dari view_map.get
+    # Pastikan menggunakan 'v' hasil dari view_map.get
     v = view_map.get(category, category)
     url = f"https://sinta.kemdiktisaintek.go.id/authors/profile/{sinta_id}/?page={page}&view={v}"
     
@@ -89,21 +135,75 @@ def scrape_documents_page(sinta_id, category, page):
         if year_tag:
             doc['year'] = year_tag.text.strip()
         
-        # Cited
-        cited_tag = item.select_one('.ar-cited')
-        if cited_tag:
-            doc['cited'] = cited_tag.text.strip()
+        # Cited - untuk Garuda, ambil dari Google Scholar
+        if category == 'garuda':
+            # Cek cache terlebih dahulu
+            if gs_citations_cache and doc['title'] in gs_citations_cache:
+                doc['cited'] = gs_citations_cache[doc['title']]
+            else:
+                # Jika tidak ada di cache, ambil langsung
+                gs_citation = get_google_scholar_citation(sinta_id, doc['title'])
+                doc['cited'] = gs_citation if gs_citation else "0"
+                doc['cited_source'] = 'google_scholar'
+        else:
+            # Untuk kategori lain, ambil dari halaman biasa
+            cited_tag = item.select_one('.ar-cited')
+            if cited_tag:
+                doc['cited'] = cited_tag.text.strip()
             
         docs.append(doc)
         
     return docs
 
-def scrape_category_all_pages(sinta_id, category):
+def build_google_scholar_cache(sinta_id):
+    """
+    Membangun cache sitasi dari Google Scholar untuk semua dokumen
+    Ini lebih efisien daripada request per dokumen
+    """
+    cache = {}
+    try:
+        print(f"Building Google Scholar citation cache...", file=sys.stderr)
+        
+        # Scrape semua halaman Google Scholar
+        for page in range(1, MAX_PAGES + 1):
+            url = f"https://sinta.kemdiktisaintek.go.id/authors/profile/{sinta_id}/?page={page}&view=googlescholar"
+            soup = get_soup(url)
+            
+            if not soup:
+                break
+                
+            doc_items = soup.find_all('div', class_='ar-list-item')
+            
+            if not doc_items:
+                break
+            
+            for item in doc_items:
+                # Ambil judul
+                title_tag = item.select_one('.ar-title a') or item.select_one('.ar-title')
+                if not title_tag:
+                    continue
+                
+                title = title_tag.text.strip()
+                
+                # Ambil sitasi
+                cited_tag = item.select_one('.ar-cited')
+                if cited_tag:
+                    cache[title] = cited_tag.text.strip()
+                else:
+                    cache[title] = "0"
+        
+        print(f"Google Scholar cache built: {len(cache)} documents", file=sys.stderr)
+        return cache
+    except Exception as e:
+        print(f"Error building Google Scholar cache: {e}", file=sys.stderr)
+        return {}
+
+def scrape_category_all_pages(sinta_id, category, gs_cache=None):
     all_docs = []
     # Serial loop to be safe, but we could parallelize pages if needed
     # We stop when a page returns no documents
     for page in range(1, MAX_PAGES + 1):
-        docs = scrape_documents_page(sinta_id, category, page)
+        docs = scrape_documents_page(sinta_id, category, page, gs_cache)
         if not docs:
             break
         all_docs.extend(docs)
@@ -171,18 +271,24 @@ def scrape_sinta_profile(sinta_id):
     except Exception as e:
         data['error_stats'] = str(e)
 
-    # 4. Scrape Documents (Parallel per category)
+    # 4. Build Google Scholar citation cache first (untuk dokumen Garuda)
+    gs_cache = build_google_scholar_cache(sinta_id)
+    
+    # 5. Scrape Documents (Parallel per category)
     # We use ThreadPoolExecutor to scrape multiple categories at once
     try:
         with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
-            future_to_cat = {executor.submit(scrape_category_all_pages, sinta_id, cat): cat for cat in CATEGORIES}
+            future_to_cat = {
+                executor.submit(scrape_category_all_pages, sinta_id, cat, gs_cache if cat == 'garuda' else None): cat 
+                for cat in CATEGORIES
+            }
             for future in concurrent.futures.as_completed(future_to_cat):
                 cat = future_to_cat[future]
                 try:
                     docs = future.result()
                     data['documents'].extend(docs)
                 except Exception as exc:
-                    pass
+                    print(f"Error scraping {cat}: {exc}", file=sys.stderr)
     except Exception as e:
         data['error_documents'] = str(e)
 
