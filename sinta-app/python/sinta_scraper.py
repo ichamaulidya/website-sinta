@@ -12,7 +12,7 @@ CATEGORIES = ['scopus', 'garuda', 'wos']
 def get_soup(url):
     headers = {
         # Ambil bagian Cookie-nya saja
-        'Cookie': 'ci_session=9crpff0pj7mltlf80q21volko3dlebt3; _sd_demo_page_promo=true; _sd_cs_visible=true',
+        'Cookie': 'ci_session=8pph1jrmgqo5igpe5h2phqt22f1kn1dp',
         
         # User-Agent disesuaikan dengan yang kamu kirim tadi
         'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Mobile Safari/537.36',
