@@ -44,6 +44,18 @@
                     <span>Publications</span>
                 </a>
             </li>
+            <li>
+                <a href="{{ route('simaker.index') }}" class="{{ Request::routeIs('simaker.*') ? 'active' : '' }}">
+                    <span class="icon">📊</span>
+                    <span>SIMAKER</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('ipr.list') }}" class="{{ Request::routeIs('ipr.list') ? 'active' : '' }}">
+                    <span class="icon">📜</span>
+                    <span>Daftar HKI/IPR</span>
+                </a>
+            </li>
         </ul>
     </aside>
 

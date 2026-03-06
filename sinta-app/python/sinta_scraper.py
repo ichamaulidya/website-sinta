@@ -7,18 +7,19 @@ import concurrent.futures
 
 # Konfigurasi
 MAX_PAGES = 10  # Batasi halaman per kategori agar tidak timeout
-CATEGORIES = ['scopus', 'garuda', 'wos']
+# CATEGORIES diperbarui dengan menambahkan 'ipr'
+CATEGORIES = ['scopus', 'garuda', 'wos', 'ipr']
 
 def get_soup(url):
     headers = {
         # Ambil bagian Cookie-nya saja
-        'Cookie': 'ci_session=9crpff0pj7mltlf80q21volko3dlebt3; _sd_demo_page_promo=true; _sd_cs_visible=true',
+        'Cookie': '_ga=GA1.1.2145658494.1770084967; _ga_YZBSYK71LL=GS2.1.s1771899418$o3$g1$t1771904566$j60$l0$h0; ci_session=aaqsap7rnas7ei55tonnf4r0duqgjetr',
         
         # User-Agent disesuaikan dengan yang kamu kirim tadi
         'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Mobile Safari/537.36',
         
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-        'Referer': 'https://sinta.kemdiktisaintek.go.id/',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+        'Referer': 'https://sinta.kemdiktisaintek.go.id',
         
     }
     try:
@@ -83,11 +84,13 @@ def scrape_documents_page(sinta_id, category, page, gs_citations_cache=None):
     # Garuda uses view=garuda
     # WoS uses view=wos
     # Scopus uses view=scopus
+    # IPR uses view=ipr
     
     view_map = {
         'scopus': 'scopus',
         'garuda': 'garuda',
-        'wos': 'wos'
+        'wos': 'wos',
+        'ipr': 'ipr'
     }
     # Pastikan menggunakan 'v' hasil dari view_map.get
     v = view_map.get(category, category)
@@ -99,9 +102,9 @@ def scrape_documents_page(sinta_id, category, page, gs_citations_cache=None):
     if not soup:
         return docs
 
+    # Mencari item dokumen/IPR
     doc_items = soup.find_all('div', class_='ar-list-item')
     
-    # If empty, check if it's a "No data" message or just empty list
     if not doc_items:
         return docs
         
@@ -121,14 +124,19 @@ def scrape_documents_page(sinta_id, category, page, gs_citations_cache=None):
             else:
                  continue
         
-        # Meta info
+        # Meta info / Quartile
         quartile = item.select_one('.ar-quartile')
         if quartile:
             doc['type'] = quartile.text.strip()
         
+        # Journal / IPR Category
         pub = item.select_one('.ar-pub')
         if pub:
             doc['journal'] = pub.text.strip()
+            
+            # Khusus untuk IPR, jika kolom 'type' kosong, isi dengan kategori IPR (Paten, Hak Cipta, dll)
+            if category == 'ipr' and 'type' not in doc:
+                doc['type'] = pub.text.strip()
             
         # Year
         year_tag = item.select_one('.ar-year')
@@ -145,8 +153,11 @@ def scrape_documents_page(sinta_id, category, page, gs_citations_cache=None):
                 gs_citation = get_google_scholar_citation(sinta_id, doc['title'])
                 doc['cited'] = gs_citation if gs_citation else "0"
                 doc['cited_source'] = 'google_scholar'
+        elif category == 'ipr':
+            # IPR biasanya tidak memiliki sitasi
+            doc['cited'] = "0"
         else:
-            # Untuk kategori lain, ambil dari halaman biasa
+            # Untuk kategori lain (Scopus/Wos), ambil dari halaman biasa
             cited_tag = item.select_one('.ar-cited')
             if cited_tag:
                 doc['cited'] = cited_tag.text.strip()
@@ -200,7 +211,7 @@ def build_google_scholar_cache(sinta_id):
 
 def scrape_category_all_pages(sinta_id, category, gs_cache=None):
     all_docs = []
-    # Serial loop to be safe, but we could parallelize pages if needed
+    # Serial loop to be safe
     # We stop when a page returns no documents
     for page in range(1, MAX_PAGES + 1):
         docs = scrape_documents_page(sinta_id, category, page, gs_cache)
@@ -275,7 +286,6 @@ def scrape_sinta_profile(sinta_id):
     gs_cache = build_google_scholar_cache(sinta_id)
     
     # 5. Scrape Documents (Parallel per category)
-    # We use ThreadPoolExecutor to scrape multiple categories at once
     try:
         with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
             future_to_cat = {
