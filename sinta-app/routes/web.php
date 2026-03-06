@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SintaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DosenController;
+use App\Http\Controllers\SimakerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,8 @@ Route::get('/', function () {
 Route::get('/cari-data', [SintaController::class, 'beranda'])->name('beranda');
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/daftar-dosen', [DosenController::class, 'index'])->name('daftar-dosen');
+Route::get('/simaker', [SimakerController::class, 'index'])->name('simaker.index');
+Route::get('/ipr-list', [SimakerController::class, 'iprList'])->name('ipr.list');
 
 
 // Tambahkan Route Halaman Baru di sini
@@ -55,13 +58,23 @@ Route::prefix('api/dashboard')->group(function () {
     Route::get('/publication-trend', [DashboardController::class, 'getPublicationTrend']);
 });
 
-// ===== API PUBLICATIONS (DATA TERKUMPUL) =====
-// Tambahkan ini di paling bawah agar rapi
+// ===== API PUBLICATIONS & IPR =====
 Route::prefix('api/publications')->group(function () {
     Route::get('/all', function() {
         $data = \App\Models\Publication::join('dosen', 'publications.sinta_id', '=', 'dosen.Sinta_ID')
                 ->select('publications.*', 'dosen.Nama as nama_dosen')
                 ->orderBy('created_at', 'desc')
+                ->get();
+        return response()->json(['success' => true, 'data' => $data]);
+    });
+});
+
+// API tambahan untuk mengambil data IPR secara JSON jika diperlukan di frontend
+Route::prefix('api/iprs')->group(function () {
+    Route::get('/all', function() {
+        $data = \App\Models\Ipr::join('dosen', 'iprs.sinta_id', '=', 'dosen.Sinta_ID')
+                ->select('iprs.*', 'dosen.Nama as nama_dosen')
+                ->orderBy('year', 'desc')
                 ->get();
         return response()->json(['success' => true, 'data' => $data]);
     });
