@@ -1062,3 +1062,103 @@
                     NPI AS npi,
                     NIDN AS nidn
                  from `dosen` where `Sinta_ID` is not null and `Sinta_ID` !=  and `Nama` LIKE %ad% or `NPI` LIKE %ad% or `NIDN` LIKE %ad% limit 10)  
+[2026-03-11 08:22:31] local.ERROR: During class fetch: Uncaught ErrorException: include(C:\Users\asa yuaziva\OneDrive\Documents\sinta project\sinta-app\vendor\composer/../laravel/framework/src/Illuminate/Testing/Concerns/TestCaches.php): Failed to open stream: No such file or directory in C:\Users\asa yuaziva\OneDrive\Documents\sinta project\sinta-app\vendor\composer\ClassLoader.php:576
+Stack trace:
+#0 C:\Users\asa yuaziva\OneDrive\Documents\sinta project\sinta-app\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php(258): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'include(C:\\User...', 'C:\\Users\\asa yu...', 576)
+#1 C:\Users\asa yuaziva\OneDrive\Documents\sinta project\sinta-app\vendor\composer\ClassLoader.php(576): Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}(2, 'include(C:\\User...', 'C:\\Users\\asa yu...', 576)
+#2 C:\Users\asa yuaziva\OneDrive\Documents\sinta project\sinta-app\vendor\composer\ClassLoader.php(576): include('C:\\Users\\asa yu...')
+#3 C:\Users\asa yuaziva\OneDrive\Documents\sinta project\sinta-app\vendor\composer\ClassLoader.php(427): Composer\Autoload\{closure}('C:\\Users\\asa yu...')
+#4 C:\Users\asa yuaziva\OneDrive\Documents\sinta project\sinta-app\vendor\laravel\framework\src\Illuminate\Testing\ParallelTestingServiceProvider.php(11): Composer\Autoload\ClassLoader->loadClass('Illuminate\\Test...')
+#5 C:\Users\asa yuaziva\OneDrive\Documents\sinta project\sinta-app\vendor\composer\ClassLoader.php(576): include('C:\\Users\\asa yu...')
+#6 C:\Users\asa yuaziva\OneDrive\Documents\sinta project\sinta-app\vendor\composer\ClassLoader.php(427): Composer\Autoload\{closure}('C:\\Users\\asa yu...')
+#7 C:\Users\asa yuaziva\OneDrive\Documents\sinta project\sinta-app\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(961): Composer\Autoload\ClassLoader->loadClass('Illuminate\\Test...')
+#8 C:\Users\asa yuaziva\OneDrive\Documents\sinta project\sinta-app\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(893): Illuminate\Foundation\Application->resolveProvider('Illuminate\\Test...')
+#9 C:\Users\asa yuaziva\OneDrive\Documents\sinta project\sinta-app\vendor\laravel\framework\src\Illuminate\Support\AggregateServiceProvider.php(31): Illuminate\Foundation\Application->register('Illuminate\\Test...')
+#10 C:\Users\asa yuaziva\OneDrive\Documents\sinta project\sinta-app\vendor\laravel\framework\src\Illuminate\Foundation\Providers\FoundationServiceProvider.php(88): Illuminate\Support\AggregateServiceProvider->register()
+#11 C:\Users\asa yuaziva\OneDrive\Documents\sinta project\sinta-app\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(896): Illuminate\Foundation\Providers\FoundationServiceProvider->register()
+#12 C:\Users\asa yuaziva\OneDrive\Documents\sinta project\sinta-app\vendor\laravel\framework\src\Illuminate\Foundation\ProviderRepository.php(74): Illuminate\Foundation\Application->register(Object(Illuminate\Foundation\Providers\FoundationServiceProvider))
+#13 C:\Users\asa yuaziva\OneDrive\Documents\sinta project\sinta-app\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(871): Illuminate\Foundation\ProviderRepository->load(Array)
+#14 C:\Users\asa yuaziva\OneDrive\Documents\sinta project\sinta-app\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\RegisterProviders.php(37): Illuminate\Foundation\Application->registerConfiguredProviders()
+#15 C:\Users\asa yuaziva\OneDrive\Documents\sinta project\sinta-app\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(342): Illuminate\Foundation\Bootstrap\RegisterProviders->bootstrap(Object(Illuminate\Foundation\Application))
+#16 C:\Users\asa yuaziva\OneDrive\Documents\sinta project\sinta-app\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(494): Illuminate\Foundation\Application->bootstrapWith(Array)
+#17 C:\Users\asa yuaziva\OneDrive\Documents\sinta project\sinta-app\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(196): Illuminate\Foundation\Console\Kernel->bootstrap()
+#18 C:\Users\asa yuaziva\OneDrive\Documents\sinta project\sinta-app\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(1235): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#19 C:\Users\asa yuaziva\OneDrive\Documents\sinta project\sinta-app\artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#20 {main} {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): During class fetch: Uncaught ErrorException: include(C:\\Users\\asa yuaziva\\OneDrive\\Documents\\sinta project\\sinta-app\\vendor\\composer/../laravel/framework/src/Illuminate/Testing/Concerns/TestCaches.php): Failed to open stream: No such file or directory in C:\\Users\\asa yuaziva\\OneDrive\\Documents\\sinta project\\sinta-app\\vendor\\composer\\ClassLoader.php:576
+Stack trace:
+#0 C:\\Users\\asa yuaziva\\OneDrive\\Documents\\sinta project\\sinta-app\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\HandleExceptions.php(258): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'include(C:\\\\User...', 'C:\\\\Users\\\\asa yu...', 576)
+#1 C:\\Users\\asa yuaziva\\OneDrive\\Documents\\sinta project\\sinta-app\\vendor\\composer\\ClassLoader.php(576): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->Illuminate\\Foundation\\Bootstrap\\{closure}(2, 'include(C:\\\\User...', 'C:\\\\Users\\\\asa yu...', 576)
+#2 C:\\Users\\asa yuaziva\\OneDrive\\Documents\\sinta project\\sinta-app\\vendor\\composer\\ClassLoader.php(576): include('C:\\\\Users\\\\asa yu...')
+#3 C:\\Users\\asa yuaziva\\OneDrive\\Documents\\sinta project\\sinta-app\\vendor\\composer\\ClassLoader.php(427): Composer\\Autoload\\{closure}('C:\\\\Users\\\\asa yu...')
+#4 C:\\Users\\asa yuaziva\\OneDrive\\Documents\\sinta project\\sinta-app\\vendor\\laravel\\framework\\src\\Illuminate\\Testing\\ParallelTestingServiceProvider.php(11): Composer\\Autoload\\ClassLoader->loadClass('Illuminate\\\\Test...')
+#5 C:\\Users\\asa yuaziva\\OneDrive\\Documents\\sinta project\\sinta-app\\vendor\\composer\\ClassLoader.php(576): include('C:\\\\Users\\\\asa yu...')
+#6 C:\\Users\\asa yuaziva\\OneDrive\\Documents\\sinta project\\sinta-app\\vendor\\composer\\ClassLoader.php(427): Composer\\Autoload\\{closure}('C:\\\\Users\\\\asa yu...')
+#7 C:\\Users\\asa yuaziva\\OneDrive\\Documents\\sinta project\\sinta-app\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(961): Composer\\Autoload\\ClassLoader->loadClass('Illuminate\\\\Test...')
+#8 C:\\Users\\asa yuaziva\\OneDrive\\Documents\\sinta project\\sinta-app\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(893): Illuminate\\Foundation\\Application->resolveProvider('Illuminate\\\\Test...')
+#9 C:\\Users\\asa yuaziva\\OneDrive\\Documents\\sinta project\\sinta-app\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\AggregateServiceProvider.php(31): Illuminate\\Foundation\\Application->register('Illuminate\\\\Test...')
+#10 C:\\Users\\asa yuaziva\\OneDrive\\Documents\\sinta project\\sinta-app\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Providers\\FoundationServiceProvider.php(88): Illuminate\\Support\\AggregateServiceProvider->register()
+#11 C:\\Users\\asa yuaziva\\OneDrive\\Documents\\sinta project\\sinta-app\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(896): Illuminate\\Foundation\\Providers\\FoundationServiceProvider->register()
+#12 C:\\Users\\asa yuaziva\\OneDrive\\Documents\\sinta project\\sinta-app\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\ProviderRepository.php(74): Illuminate\\Foundation\\Application->register(Object(Illuminate\\Foundation\\Providers\\FoundationServiceProvider))
+#13 C:\\Users\\asa yuaziva\\OneDrive\\Documents\\sinta project\\sinta-app\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(871): Illuminate\\Foundation\\ProviderRepository->load(Array)
+#14 C:\\Users\\asa yuaziva\\OneDrive\\Documents\\sinta project\\sinta-app\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\RegisterProviders.php(37): Illuminate\\Foundation\\Application->registerConfiguredProviders()
+#15 C:\\Users\\asa yuaziva\\OneDrive\\Documents\\sinta project\\sinta-app\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(342): Illuminate\\Foundation\\Bootstrap\\RegisterProviders->bootstrap(Object(Illuminate\\Foundation\\Application))
+#16 C:\\Users\\asa yuaziva\\OneDrive\\Documents\\sinta project\\sinta-app\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(494): Illuminate\\Foundation\\Application->bootstrapWith(Array)
+#17 C:\\Users\\asa yuaziva\\OneDrive\\Documents\\sinta project\\sinta-app\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(196): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
+#18 C:\\Users\\asa yuaziva\\OneDrive\\Documents\\sinta project\\sinta-app\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(1235): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#19 C:\\Users\\asa yuaziva\\OneDrive\\Documents\\sinta project\\sinta-app\\artisan(16): Illuminate\\Foundation\\Application->handleCommand(Object(Symfony\\Component\\Console\\Input\\ArgvInput))
+#20 {main} at C:/Users/asa yuaziva/OneDrive/Documents/sinta project/sinta-app/vendor/laravel/framework/src/Illuminate/Testing/ParallelTestingServiceProvider.php:11)
+[stacktrace]
+#0 {main}
+"} 
+[2026-03-11 08:23:06] local.ERROR: During class fetch: Uncaught ErrorException: include(C:\Users\asa yuaziva\OneDrive\Documents\sinta project\sinta-app\vendor\composer/../laravel/framework/src/Illuminate/Testing/Concerns/TestCaches.php): Failed to open stream: No such file or directory in C:\Users\asa yuaziva\OneDrive\Documents\sinta project\sinta-app\vendor\composer\ClassLoader.php:576
+Stack trace:
+#0 C:\Users\asa yuaziva\OneDrive\Documents\sinta project\sinta-app\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php(258): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'include(C:\\User...', 'C:\\Users\\asa yu...', 576)
+#1 C:\Users\asa yuaziva\OneDrive\Documents\sinta project\sinta-app\vendor\composer\ClassLoader.php(576): Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}(2, 'include(C:\\User...', 'C:\\Users\\asa yu...', 576)
+#2 C:\Users\asa yuaziva\OneDrive\Documents\sinta project\sinta-app\vendor\composer\ClassLoader.php(576): include('C:\\Users\\asa yu...')
+#3 C:\Users\asa yuaziva\OneDrive\Documents\sinta project\sinta-app\vendor\composer\ClassLoader.php(427): Composer\Autoload\{closure}('C:\\Users\\asa yu...')
+#4 C:\Users\asa yuaziva\OneDrive\Documents\sinta project\sinta-app\vendor\laravel\framework\src\Illuminate\Testing\ParallelTestingServiceProvider.php(11): Composer\Autoload\ClassLoader->loadClass('Illuminate\\Test...')
+#5 C:\Users\asa yuaziva\OneDrive\Documents\sinta project\sinta-app\vendor\composer\ClassLoader.php(576): include('C:\\Users\\asa yu...')
+#6 C:\Users\asa yuaziva\OneDrive\Documents\sinta project\sinta-app\vendor\composer\ClassLoader.php(427): Composer\Autoload\{closure}('C:\\Users\\asa yu...')
+#7 C:\Users\asa yuaziva\OneDrive\Documents\sinta project\sinta-app\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(961): Composer\Autoload\ClassLoader->loadClass('Illuminate\\Test...')
+#8 C:\Users\asa yuaziva\OneDrive\Documents\sinta project\sinta-app\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(893): Illuminate\Foundation\Application->resolveProvider('Illuminate\\Test...')
+#9 C:\Users\asa yuaziva\OneDrive\Documents\sinta project\sinta-app\vendor\laravel\framework\src\Illuminate\Support\AggregateServiceProvider.php(31): Illuminate\Foundation\Application->register('Illuminate\\Test...')
+#10 C:\Users\asa yuaziva\OneDrive\Documents\sinta project\sinta-app\vendor\laravel\framework\src\Illuminate\Foundation\Providers\FoundationServiceProvider.php(88): Illuminate\Support\AggregateServiceProvider->register()
+#11 C:\Users\asa yuaziva\OneDrive\Documents\sinta project\sinta-app\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(896): Illuminate\Foundation\Providers\FoundationServiceProvider->register()
+#12 C:\Users\asa yuaziva\OneDrive\Documents\sinta project\sinta-app\vendor\laravel\framework\src\Illuminate\Foundation\ProviderRepository.php(74): Illuminate\Foundation\Application->register(Object(Illuminate\Foundation\Providers\FoundationServiceProvider))
+#13 C:\Users\asa yuaziva\OneDrive\Documents\sinta project\sinta-app\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(871): Illuminate\Foundation\ProviderRepository->load(Array)
+#14 C:\Users\asa yuaziva\OneDrive\Documents\sinta project\sinta-app\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\RegisterProviders.php(37): Illuminate\Foundation\Application->registerConfiguredProviders()
+#15 C:\Users\asa yuaziva\OneDrive\Documents\sinta project\sinta-app\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(342): Illuminate\Foundation\Bootstrap\RegisterProviders->bootstrap(Object(Illuminate\Foundation\Application))
+#16 C:\Users\asa yuaziva\OneDrive\Documents\sinta project\sinta-app\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(494): Illuminate\Foundation\Application->bootstrapWith(Array)
+#17 C:\Users\asa yuaziva\OneDrive\Documents\sinta project\sinta-app\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(196): Illuminate\Foundation\Console\Kernel->bootstrap()
+#18 C:\Users\asa yuaziva\OneDrive\Documents\sinta project\sinta-app\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(1235): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#19 C:\Users\asa yuaziva\OneDrive\Documents\sinta project\sinta-app\artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#20 {main} {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): During class fetch: Uncaught ErrorException: include(C:\\Users\\asa yuaziva\\OneDrive\\Documents\\sinta project\\sinta-app\\vendor\\composer/../laravel/framework/src/Illuminate/Testing/Concerns/TestCaches.php): Failed to open stream: No such file or directory in C:\\Users\\asa yuaziva\\OneDrive\\Documents\\sinta project\\sinta-app\\vendor\\composer\\ClassLoader.php:576
+Stack trace:
+#0 C:\\Users\\asa yuaziva\\OneDrive\\Documents\\sinta project\\sinta-app\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\HandleExceptions.php(258): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'include(C:\\\\User...', 'C:\\\\Users\\\\asa yu...', 576)
+#1 C:\\Users\\asa yuaziva\\OneDrive\\Documents\\sinta project\\sinta-app\\vendor\\composer\\ClassLoader.php(576): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->Illuminate\\Foundation\\Bootstrap\\{closure}(2, 'include(C:\\\\User...', 'C:\\\\Users\\\\asa yu...', 576)
+#2 C:\\Users\\asa yuaziva\\OneDrive\\Documents\\sinta project\\sinta-app\\vendor\\composer\\ClassLoader.php(576): include('C:\\\\Users\\\\asa yu...')
+#3 C:\\Users\\asa yuaziva\\OneDrive\\Documents\\sinta project\\sinta-app\\vendor\\composer\\ClassLoader.php(427): Composer\\Autoload\\{closure}('C:\\\\Users\\\\asa yu...')
+#4 C:\\Users\\asa yuaziva\\OneDrive\\Documents\\sinta project\\sinta-app\\vendor\\laravel\\framework\\src\\Illuminate\\Testing\\ParallelTestingServiceProvider.php(11): Composer\\Autoload\\ClassLoader->loadClass('Illuminate\\\\Test...')
+#5 C:\\Users\\asa yuaziva\\OneDrive\\Documents\\sinta project\\sinta-app\\vendor\\composer\\ClassLoader.php(576): include('C:\\\\Users\\\\asa yu...')
+#6 C:\\Users\\asa yuaziva\\OneDrive\\Documents\\sinta project\\sinta-app\\vendor\\composer\\ClassLoader.php(427): Composer\\Autoload\\{closure}('C:\\\\Users\\\\asa yu...')
+#7 C:\\Users\\asa yuaziva\\OneDrive\\Documents\\sinta project\\sinta-app\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(961): Composer\\Autoload\\ClassLoader->loadClass('Illuminate\\\\Test...')
+#8 C:\\Users\\asa yuaziva\\OneDrive\\Documents\\sinta project\\sinta-app\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(893): Illuminate\\Foundation\\Application->resolveProvider('Illuminate\\\\Test...')
+#9 C:\\Users\\asa yuaziva\\OneDrive\\Documents\\sinta project\\sinta-app\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\AggregateServiceProvider.php(31): Illuminate\\Foundation\\Application->register('Illuminate\\\\Test...')
+#10 C:\\Users\\asa yuaziva\\OneDrive\\Documents\\sinta project\\sinta-app\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Providers\\FoundationServiceProvider.php(88): Illuminate\\Support\\AggregateServiceProvider->register()
+#11 C:\\Users\\asa yuaziva\\OneDrive\\Documents\\sinta project\\sinta-app\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(896): Illuminate\\Foundation\\Providers\\FoundationServiceProvider->register()
+#12 C:\\Users\\asa yuaziva\\OneDrive\\Documents\\sinta project\\sinta-app\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\ProviderRepository.php(74): Illuminate\\Foundation\\Application->register(Object(Illuminate\\Foundation\\Providers\\FoundationServiceProvider))
+#13 C:\\Users\\asa yuaziva\\OneDrive\\Documents\\sinta project\\sinta-app\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(871): Illuminate\\Foundation\\ProviderRepository->load(Array)
+#14 C:\\Users\\asa yuaziva\\OneDrive\\Documents\\sinta project\\sinta-app\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\RegisterProviders.php(37): Illuminate\\Foundation\\Application->registerConfiguredProviders()
+#15 C:\\Users\\asa yuaziva\\OneDrive\\Documents\\sinta project\\sinta-app\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(342): Illuminate\\Foundation\\Bootstrap\\RegisterProviders->bootstrap(Object(Illuminate\\Foundation\\Application))
+#16 C:\\Users\\asa yuaziva\\OneDrive\\Documents\\sinta project\\sinta-app\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(494): Illuminate\\Foundation\\Application->bootstrapWith(Array)
+#17 C:\\Users\\asa yuaziva\\OneDrive\\Documents\\sinta project\\sinta-app\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(196): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
+#18 C:\\Users\\asa yuaziva\\OneDrive\\Documents\\sinta project\\sinta-app\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(1235): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#19 C:\\Users\\asa yuaziva\\OneDrive\\Documents\\sinta project\\sinta-app\\artisan(16): Illuminate\\Foundation\\Application->handleCommand(Object(Symfony\\Component\\Console\\Input\\ArgvInput))
+#20 {main} at C:/Users/asa yuaziva/OneDrive/Documents/sinta project/sinta-app/vendor/laravel/framework/src/Illuminate/Testing/ParallelTestingServiceProvider.php:11)
+[stacktrace]
+#0 {main}
+"} 
+[2026-03-11 08:25:55] local.ERROR: Trait "Illuminate\Testing\Concerns\TestCaches" not found {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Trait \"Illuminate\\Testing\\Concerns\\TestCaches\" not found at C:/Users/asa yuaziva/OneDrive/Documents/sinta project/sinta-app/vendor/laravel/framework/src/Illuminate/Testing/ParallelTestingServiceProvider.php:11)
+[stacktrace]
+#0 {main}
+"} 
