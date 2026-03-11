@@ -507,6 +507,123 @@ document.addEventListener('click', function(event) {
     if (!event.target.closest('.dropdown')) {
         dropdownMenu.classList.remove('show');
     }
+
+    /**
+    * TOMBOL "CARI DATA"
+    */
+    async function searchDosen() {
+        let idToSearch = null;
+
+        const inputVal = searchInput.value.trim();
+
+        // Jika user paste SINTA ID manual
+        if (/^\d{6,}$/.test(inputVal)) {
+            idToSearch = inputVal;
+        } else {
+            idToSearch = selectedSintaId;
+        }
+
+        if (!idToSearch) {
+            alert('Pilih dosen dari dropdown atau masukkan SINTA ID');
+            return;
+        }
+
+        const btn = document.querySelector('.btn-primary');
+        btn.innerHTML = 'Memuat...';
+        btn.disabled = true;
+
+        try {
+            const res = await fetch(`/api/sinta/scrape?id=${idToSearch}`);
+            const json = await res.json();
+
+            if (!json.success) throw new Error(json.error);
+
+            const data = json.data;
+            currentFullData = data;
+
+            /* ===== PROFIL ===== */
+            document.getElementById('dosenNama').textContent = data.profile?.name ?? '-';
+            document.getElementById('dosenInstitusi').textContent = data.profile?.affiliation ?? '-';
+            document.getElementById('dosenDepartemen').textContent = data.profile?.department ?? '-';
+            document.getElementById('dosenSintaId').textContent = 'SINTA ID: ' + idToSearch;
+
+            /* ===== SCORE ===== */
+            document.getElementById('sintaOverall').textContent = data.metrics?.['SINTA Score Overall'] ?? '0';
+            document.getElementById('sinta3yr').textContent = data.metrics?.['SINTA Score 3Yr'] ?? '0';
+            document.getElementById('affilOverall').textContent = data.metrics?.['Affil Score'] ?? '0';
+            document.getElementById('affil3yr').textContent = data.metrics?.['Affil Score 3Yr'] ?? '0';
+
+            /* ===== STAT ===== */
+            document.getElementById('metricArticle').textContent = data.stats?.['Article'] ?? '0';
+            document.getElementById('metricCitation').textContent = data.stats?.['Citation'] ?? '0';
+            document.getElementById('metricHIndex').textContent = data.stats?.['H-Index'] ?? '0';
+            document.getElementById('metrici10Index').textContent = data.stats?.['i10-Index'] ?? '0';
+
+            document.getElementById('emptyState').classList.add('hidden');
+            document.getElementById('resultsSection').classList.remove('hidden');
+
+            changeTab('scopus');
+
+        } catch (err) {
+            console.error(err);
+            alert('Gagal mengambil data: ' + err.message);
+        } finally {
+            btn.innerHTML = 'Cari Data';
+            btn.disabled = false;
+        }
+    }
+
+    /**
+    * TAB PUBLIKASI
+    */
+    function changeTab(tabName) {
+        document.querySelectorAll('.tab').forEach(t => {
+            t.classList.remove('active');
+            if (t.textContent.toLowerCase().includes(tabName)) {
+                t.classList.add('active');
+            }
+        });
+
+        if (!currentFullData?.documents) return;
+
+        let source = tabName;
+        if (tabName === 'scholar') source = 'googlescholar';
+
+        const docs = currentFullData.documents.filter(d => d.source === source);
+        renderDocuments(docs, source);
+    }
+
+    /**
+    * RENDER TABEL PUBLIKASI
+    */
+    function renderDocuments(docs, source) {
+        const tbody = document.getElementById('publicationTable');
+
+        if (!docs || docs.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="3" style="text-align:center">Tidak ada data</td></tr>`;
+            return;
+        }
+
+        tbody.innerHTML = docs.map(d => `
+            <tr>
+                <td>
+                    <strong>${d.title}</strong><br>
+                    <small>${d.journal ?? ''}</small>
+                    ${
+                        (source === 'scopus' || source === 'garuda') && d.type
+                            ? `<br><br><small class="badge badge-orange">${d.type}</small>`
+                            : ''
+                    }
+                </td>
+                <td>${d.year ?? '-'}</td>
+                <td><span class="badge badge-blue">${d.cited ?? '0'}</span></td>
+            </tr>
+        `).join('');
+    }
+
+    function downloadExcel() {
+        alert('Export Excel akan diaktifkan setelah data stabil');
+    }
 });
 </script>
 @endpush
