@@ -114,4 +114,23 @@ class DashboardController extends Controller
             ], 500);
         }
     }
+
+    public function getPublicationTrend()
+    {
+        try {
+            // Kita hitung jumlah publikasi per tahun dari tabel publications
+            $data = \App\Models\Publication::selectRaw('year as tahun, count(*) as jumlah')
+                    ->whereNotNull('year')
+                    ->groupBy('year')
+                    ->orderBy('year', 'asc')
+                    ->get();
+
+            return response()->json([
+                'success' => true,
+                'data' => $data
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'error' => $e->getMessage()], 500);
+        }
+    }
 }

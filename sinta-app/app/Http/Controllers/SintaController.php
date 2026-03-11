@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Process;
 use App\Models\Dosen;
 use App\Models\Publication; 
+use App\Models\Ipr; // Menambahkan model IPR
 use App\Exports\PublicationsExport; 
 use Maatwebsite\Excel\Facades\Excel; 
 
@@ -22,6 +23,7 @@ class SintaController extends Controller
     {
         return view('beranda');
     }
+
     public function __construct()
     {
         $this->client = new Client([
@@ -96,7 +98,6 @@ class SintaController extends Controller
         $fileName = "Data_Publikasi_{$id}.xlsx";
     
         // Kita gunakan class export yang sama, tapi kirim ID SINTA
-        // Kamu perlu menyesuaikan PublicationsExport sedikit jika ingin fitur ini jalan
         return Excel::download(new \App\Exports\PublicationsExport($id, null, true), $fileName);
     }
 
@@ -105,7 +106,6 @@ class SintaController extends Controller
      */
     public function scrape(Request $request)
     {
-
         set_time_limit(300);
         $id = $request->query('id');
 
@@ -143,22 +143,35 @@ class SintaController extends Controller
 
         $json = json_decode($output, true);
 
+        // BAGIAN YANG DIUBAH: Memisahkan penyimpanan IPR dan Publikasi
         if (isset($json['documents']) && is_array($json['documents'])) {
             foreach ($json['documents'] as $doc) {
-                \App\Models\Publication::updateOrCreate(
-                    [
-                    'sinta_id' => $id,
-                    'title'    => $doc['title'],
-                    'year' => isset($doc['year']) ? substr(trim($doc['year']), -4) : date('Y')
-                    ],
-                    [
-                    'source'   => $doc['source'],
-                    'journal'  => $doc['journal'] ?? '-',
-                    'cited'    => (int) ($doc['cited'] ?? 0),
-                    'type'     => $doc['type'] ?? '-',
-                    // 'created_at' otomatis terisi saat data pertama kali masuk (untuk filter bulan)
-                    ]
-                );
+                if ($doc['source'] == 'ipr') {
+                    // Simpan ke tabel IPR
+                    \App\Models\Ipr::updateOrCreate(
+                        ['title' => $doc['title'], 'sinta_id' => $id],
+                        [
+                            'category' => $doc['type'] ?? 'HKI',
+                            'year'     => isset($doc['year']) ? substr(trim($doc['year']), -4) : date('Y'),
+                            'link'     => $doc['link'] ?? null,
+                        ]
+                    );
+                } else {
+                    // Simpan ke tabel Publications (Scopus, Garuda, WoS)
+                    \App\Models\Publication::updateOrCreate(
+                        [
+                            'sinta_id' => $id,
+                            'title'    => $doc['title'],
+                            'year'     => isset($doc['year']) ? substr(trim($doc['year']), -4) : date('Y')
+                        ],
+                        [
+                            'source'   => $doc['source'],
+                            'journal'  => $doc['journal'] ?? '-',
+                            'cited'    => (int) ($doc['cited'] ?? 0),
+                            'type'     => $doc['type'] ?? '-',
+                        ]
+                    );
+                }
             }
         }
 
@@ -216,9 +229,6 @@ class SintaController extends Controller
                 throw new \Exception('Tidak dapat mengakses SINTA dari semua URL yang dicoba');
             }
 
-            // Save HTML for debugging (optional, comment out in production)
-            // file_put_contents(storage_path('app/debug_search.html'), $html);
-
             $crawler = new Crawler($html);
             $results = [];
 
@@ -258,7 +268,6 @@ class SintaController extends Controller
             }
 
             if (empty($results)) {
-                // Log HTML structure for debugging
                 $allClasses = [];
                 $crawler->filter('*')->each(function (Crawler $node) use (&$allClasses) {
                     $class = $node->attr('class');
@@ -314,7 +323,6 @@ class SintaController extends Controller
         $deptSelectors = ['.au-dept', '.department', 'small'];
         $scoreSelectors = ['.pr-num', '.score', '.sinta-score', 'span[class*="score"]'];
 
-        // Get author link and ID
         $authorLink = null;
         $sintaId = null;
         
@@ -333,31 +341,27 @@ class SintaController extends Controller
         }
 
         if (!$sintaId) {
-            return null; // Skip if no ID found
+            return null; 
         }
 
-        // Get name
         $nama = null;
         foreach ($nameSelectors as $selector) {
             $nama = $this->safeText($node, $selector);
             if ($nama && $nama !== '-') break;
         }
 
-        // Get affiliation
         $institusi = null;
         foreach ($affSelectors as $selector) {
             $institusi = $this->safeText($node, $selector);
             if ($institusi && $institusi !== '-') break;
         }
 
-        // Get department
         $departemen = '-';
         foreach ($deptSelectors as $selector) {
             $departemen = $this->safeText($node, $selector);
             if ($departemen && $departemen !== '-') break;
         }
 
-        // Get score
         $sintaScore = '0';
         foreach ($scoreSelectors as $selector) {
             $sintaScore = $this->safeText($node, $selector);
@@ -374,29 +378,17 @@ class SintaController extends Controller
         ];
     }
 
-    /**
-     * Extract SINTA ID from URL
-     */
     private function extractSintaId($url)
     {
-        // Examples:
-        // /authors/profile/6005887
-        // https://sinta.kemdikbud.go.id/authors/profile/6005887
-        
         if (preg_match('/\/authors\/profile\/(\d+)/', $url, $matches)) {
             return $matches[1];
         }
-        
         if (preg_match('/\/(\d{6,})/', $url, $matches)) {
             return $matches[1];
         }
-        
         return basename($url);
     }
 
-    /**
-     * Make absolute URL
-     */
     private function makeAbsoluteUrl($url)
     {
         if (str_starts_with($url, 'http')) {
@@ -405,13 +397,9 @@ class SintaController extends Controller
         return $this->baseUrl . $url;
     }
 
-    /**
-     * Ambil detail profil dosen berdasarkan SINTA ID
-     */
     public function getProfile($id)
     {
         try {
-            // Try cache first (5 minutes)
             $cacheKey = "sinta_profile_{$id}";
             
             if (Cache::has($cacheKey)) {
@@ -425,12 +413,8 @@ class SintaController extends Controller
             $response = $this->client->request('GET', $url);
             $html = $response->getBody()->getContents();
             
-            // Save for debugging
-            // file_put_contents(storage_path("app/debug_profile_{$id}.html"), $html);
-            
             $crawler = new Crawler($html);
 
-            // Data profil dengan multiple selector fallback
             $data = [
                 'sinta_id' => $id,
                 'nama' => $this->getProfileField($crawler, [
@@ -451,13 +435,11 @@ class SintaController extends Controller
                     '.dept'
                 ]),
                 
-                // SINTA Score - try to get from multiple locations
                 'sinta_overall' => $this->getScoreByIndex($crawler, 0),
                 'sinta_3yr' => $this->getScoreByIndex($crawler, 1),
                 'affil_overall' => $this->getScoreByIndex($crawler, 2),
                 'affil_3yr' => $this->getScoreByIndex($crawler, 3),
 
-                // Metrics - will be filled by scraping the metrics section
                 'scopus' => $this->getMetricsFromPage($crawler, 'scopus'),
                 'scholar' => $this->getMetricsFromPage($crawler, 'scholar'),
                 'wos' => $this->getMetricsFromPage($crawler, 'wos'),
@@ -471,7 +453,6 @@ class SintaController extends Controller
                 'data' => $data
             ];
 
-            // Cache for 5 minutes
             Cache::put($cacheKey, $result, now()->addMinutes(5));
 
             return response()->json($result);
@@ -486,9 +467,6 @@ class SintaController extends Controller
         }
     }
 
-    /**
-     * Get profile field with fallback selectors
-     */
     private function getProfileField($crawler, array $selectors)
     {
         foreach ($selectors as $selector) {
@@ -500,9 +478,6 @@ class SintaController extends Controller
         return '-';
     }
 
-    /**
-     * Get score by index with multiple selector patterns
-     */
     private function getScoreByIndex($crawler, $index)
     {
         $selectors = [
@@ -529,13 +504,9 @@ class SintaController extends Controller
         return '-';
     }
 
-    /**
-     * Get metrics from profile page
-     */
     private function getMetricsFromPage($crawler, $source)
     {
         try {
-            // Look for metrics in various possible locations
             $metrics = [
                 'articles' => 0,
                 'citations' => 0,
@@ -545,7 +516,6 @@ class SintaController extends Controller
                 'g_index' => 0
             ];
 
-            // Try to find metrics section
             $metricSelectors = [
                 "div[data-source='{$source}']",
                 ".{$source}-metrics",
@@ -566,8 +536,6 @@ class SintaController extends Controller
             }
 
             if ($metricsNode) {
-                // Parse metrics from the found section
-                // This would need to be customized based on actual HTML structure
                 $metrics['articles'] = $this->safeNumber($metricsNode, '.articles, .docs, [data-metric="articles"]');
                 $metrics['citations'] = $this->safeNumber($metricsNode, '.citations, [data-metric="citations"]');
                 $metrics['h_index'] = $this->safeNumber($metricsNode, '.h-index, [data-metric="hindex"]');
@@ -576,20 +544,10 @@ class SintaController extends Controller
             return $metrics;
         } catch (\Exception $e) {
             Log::warning("Metrics extraction failed for {$source}: " . $e->getMessage());
-            return [
-                'articles' => 0,
-                'citations' => 0,
-                'cited_docs' => 0,
-                'h_index' => 0,
-                'i10_index' => 0,
-                'g_index' => 0
-            ];
+            return $metrics;
         }
     }
 
-    /**
-     * Ambil publikasi berdasarkan source (scopus/scholar/wos/garuda)
-     */
     public function getPublications($id, $source = 'scopus')
     {
         try {
@@ -601,10 +559,8 @@ class SintaController extends Controller
             $html = $response->getBody()->getContents();
             
             $crawler = new Crawler($html);
-
             $publications = [];
 
-            // Try to find table
             $tableSelectors = [
                 'table tbody tr',
                 '.publication-item',
@@ -615,10 +571,8 @@ class SintaController extends Controller
             foreach ($tableSelectors as $selector) {
                 try {
                     $rows = $crawler->filter($selector);
-                    
                     if ($rows->count() > 0) {
                         Log::info("Found {$rows->count()} publications with selector: {$selector}");
-                        
                         $rows->each(function (Crawler $node) use (&$publications) {
                             try {
                                 $pub = $this->parsePublicationRow($node);
@@ -629,10 +583,7 @@ class SintaController extends Controller
                                 Log::warning('Error parsing publication: ' . $e->getMessage());
                             }
                         });
-                        
-                        if (count($publications) > 0) {
-                            break; // Found working selector
-                        }
+                        if (count($publications) > 0) break;
                     }
                 } catch (\Exception $e) {
                     continue;
@@ -648,7 +599,6 @@ class SintaController extends Controller
 
         } catch (\Exception $e) {
             Log::error("Publications error: " . $e->getMessage());
-            
             return response()->json([
                 'success' => false,
                 'error' => 'Gagal mengambil publikasi: ' . $e->getMessage()
@@ -656,16 +606,10 @@ class SintaController extends Controller
         }
     }
 
-    /**
-     * Parse publication row with fallback
-     */
     private function parsePublicationRow($node)
     {
         $cells = $node->filter('td');
-        
-        if ($cells->count() < 4) {
-            return null; // Not enough cells
-        }
+        if ($cells->count() < 4) return null;
 
         return [
             'title' => $this->safeText($node, 'td', 0),
@@ -677,31 +621,20 @@ class SintaController extends Controller
         ];
     }
 
-    /**
-     * Helper: Safely get text from crawler
-     */
     private function safeText($crawler, $selector, $index = null)
     {
         try {
             $element = $crawler->filter($selector);
-            
             if ($index !== null && $element->count() > $index) {
                 return trim($element->eq($index)->text());
             }
-            
-            if ($element->count() > 0) {
-                return trim($element->text());
-            }
-            
+            if ($element->count() > 0) return trim($element->text());
             return '-';
         } catch (\Exception $e) {
             return '-';
         }
     }
 
-    /**
-     * Helper: Safely get number from crawler
-     */
     private function safeNumber($crawler, $selector)
     {
         $text = $this->safeText($crawler, $selector);

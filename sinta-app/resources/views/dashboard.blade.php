@@ -52,8 +52,8 @@
 <!-- CHART PUBLIKASI PER TAHUN -->
 <div class="card">
     <h3 class="card-title">Tren Publikasi per Tahun</h3>
-    <div id="chartPublikasi" style="height: 300px; display: flex; align-items: center; justify-content: center; color: #6b7280;">
-        Chart akan ditampilkan di sini (gunakan Chart.js atau library lain)
+    <div style="height: 300px; position: relative;">
+        <canvas id="publicationChart"></canvas>
     </div>
 </div>
 
@@ -112,6 +112,14 @@
                 `;
             }
 
+            // Load Tren Publikasi
+            const trendRes = await fetch('/api/dashboard/publication-trend');
+            const trendJson = await trendRes.json();
+
+            if (trendJson.success) {
+                renderChart(trendJson.data);
+            }
+
             // Load departemen stats
             const deptRes = await fetch('/api/dashboard/departemen-stats');
             const deptJson = await deptRes.json();
@@ -145,6 +153,34 @@
                 <td>${d.publikasi || 0}</td>
             </tr>
         `).join('');
+    }
+
+    function renderChart(data) {
+        const ctx = document.getElementById('publicationChart').getContext('2d');
+        if (!ctx) return; // Keamanan agar tidak error jika canvas tidak ditemukan
+
+        // Pastikan Chart.js sudah terinstall/tersedia secara lokal
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: data.map(item => item.tahun),
+                datasets: [{
+                    label: 'Jumlah Publikasi',
+                    data: data.map(item => item.jumlah),
+                    borderColor: '#3b82f6',
+                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                    fill: true,
+                    tension: 0.3
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
     }
 
     function renderDepartemenStats(data) {
