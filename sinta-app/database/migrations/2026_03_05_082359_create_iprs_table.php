@@ -8,17 +8,16 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('iprs', function (Blueprint $blade) {
-            $blade->id();
-            $blade->string('sinta_id'); // ID Dosen
-            $blade->text('title');      // Judul HKI
-            $blade->string('category');   // Jenis: Hak Cipta, Paten, dll
-            $blade->string('year', 4)->nullable();
-            $blade->string('link')->nullable();
-            $blade->timestamps();
-            
-            // Opsional: Hubungkan dengan tabel dosen jika ada
-            // $blade->foreign('sinta_id')->references('sinta_id')->on('lecturers')->onDelete('cascade');
+        // Pastikan variabel di sini adalah $table
+        Schema::create('iprs', function (Blueprint $table) {
+            $table->id();
+            $table->string('sinta_id'); 
+            $table->text('title');      
+            $table->text('inventor')->nullable(); // Kolom inventor yang tadi kita bahas
+            $table->string('category');   
+            $table->string('year', 4)->nullable();
+            $table->string('link')->nullable();
+            $table->timestamps();
         });
     }
 

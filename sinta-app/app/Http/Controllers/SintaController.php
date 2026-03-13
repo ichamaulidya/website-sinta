@@ -12,6 +12,7 @@ use App\Models\Dosen;
 use App\Models\Publication; 
 use App\Models\Ipr; // Menambahkan model IPR
 use App\Exports\PublicationsExport; 
+use Maatwebsite\Excel\Maatwebsite;
 use Maatwebsite\Excel\Facades\Excel; 
 
 class SintaController extends Controller
@@ -149,8 +150,9 @@ class SintaController extends Controller
                 if ($doc['source'] == 'ipr') {
                     // Simpan ke tabel IPR
                     \App\Models\Ipr::updateOrCreate(
-                        ['title' => $doc['title'], 'sinta_id' => $id],
+                        [   'title' => $doc['title'], 'sinta_id' => $id],
                         [
+                            'inventor' => $doc['inventor'] ?? '-', 
                             'category' => $doc['type'] ?? 'HKI',
                             'year'     => isset($doc['year']) ? substr(trim($doc['year']), -4) : date('Y'),
                             'link'     => $doc['link'] ?? null,
@@ -234,11 +236,11 @@ class SintaController extends Controller
 
             // Try multiple selector patterns
             $selectors = [
-                '.au-item',           // Original selector
-                '.author-item',       // Alternative
-                '.result-item',       // Alternative
-                'div[class*="author"]', // Wildcard
-                'article',            // Generic
+                '.au-item',
+                '.author-item',
+                '.result-item',
+                'div[class*="author"]',
+                'article',
             ];
 
             $foundSelector = null;
@@ -262,7 +264,7 @@ class SintaController extends Controller
                     });
                     
                     if (count($results) > 0) {
-                        break; // Found working selector
+                        break; 
                     }
                 }
             }
@@ -640,5 +642,56 @@ class SintaController extends Controller
         $text = $this->safeText($crawler, $selector);
         $number = preg_replace('/[^0-9]/', '', $text);
         return $number ? (int)$number : 0;
+    }
+
+    /**
+     * Tambahkan fungsi scrapeHkiProdi di dalam SintaController.php
+     */
+    public function scrapeHkiProdi(Request $request)
+    {
+        set_time_limit(300);
+        $id = $request->query('id');
+
+        if (!$id) {
+            return response()->json(['success' => false, 'error' => 'ID Prodi tidak ditemukan'], 400);
+        }
+
+        $python = 'py'; 
+        // ARAHKAN KE FILE SCRAPER BARU
+        $script = base_path('/python/prodi_scraper.py');
+
+        if (!file_exists($script)) {
+            return response()->json(['success' => false, 'error' => 'File prodi_scraper.py tidak ditemukan'], 500);
+        }
+
+        $command = escapeshellcmd("$python \"$script\" $id");
+        $output = shell_exec($command);
+
+        if (!$output) {
+            return response()->json(['success' => false, 'error' => 'Gagal menjalankan script python'], 500);
+        }
+
+        $json = json_decode($output, true);
+
+        if (isset($json['documents']) && is_array($json['documents'])) {
+            foreach ($json['documents'] as $doc) {
+                \App\Models\Ipr::updateOrCreate(
+                    [
+                        'title' => $doc['title'], 
+                        'sinta_id' => 'PRODI-' . $id // Prefix agar tahu ini data level prodi
+                    ],
+                    [
+                        'category' => $doc['type'] ?? 'HKI',
+                        'year'     => $doc['year'] ?? date('Y'),
+                        'link'     => $doc['link'] ?? null,
+                    ]
+                );
+            }
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => $json
+        ]);
     }
 }

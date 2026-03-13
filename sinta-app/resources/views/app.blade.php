@@ -45,15 +45,21 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('simaker.index') }}" class="{{ Request::routeIs('simaker.*') ? 'active' : '' }}">
-                    <span class="icon">📊</span>
-                    <span>SIMAKER</span>
+                <a href="{{ route('hki.index') }}" class="{{ Request::routeIs('hki.index') ? 'active' : '' }}">
+                    <span class="icon">🔎</span>
+                    <span>Cari HKI Prodi</span>
                 </a>
             </li>
             <li>
                 <a href="{{ route('ipr.list') }}" class="{{ Request::routeIs('ipr.list') ? 'active' : '' }}">
                     <span class="icon">📜</span>
                     <span>Daftar HKI/IPR</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('simaker.index') }}" class="{{ Request::routeIs('simaker.*') ? 'active' : '' }}">
+                    <span class="icon">📊</span>
+                    <span>SIMAKER</span>
                 </a>
             </li>
         </ul>

@@ -23,6 +23,10 @@ Route::get('/daftar-dosen', [DosenController::class, 'index'])->name('daftar-dos
 Route::get('/simaker', [SimakerController::class, 'index'])->name('simaker.index');
 Route::get('/ipr-list', [SimakerController::class, 'iprList'])->name('ipr.list');
 
+// Route baru untuk menampilkan halaman hki.blade.php
+Route::get('/hki', function () {
+    return view('hki');
+})->name('hki.index');
 
 // Tambahkan Route Halaman Baru di sini
 Route::get('/publications', function () {
@@ -37,6 +41,9 @@ Route::prefix('api/sinta')->group(function () {
     Route::get('/publications/{id}/{source?}', [SintaController::class, 'getPublications']);
     Route::get('/export-excel', [SintaController::class, 'exportExcel']);
     Route::get('/export-excel-single', [SintaController::class, 'exportExcelSingle']);
+    
+    // API baru untuk proses scrape HKI berdasarkan ID Departemen
+    Route::get('/scrape-hki-prodi', [SintaController::class, 'scrapeHkiProdi']);
     
     // Autocomplete endpoint untuk search (beranda page)
     Route::get('/get-all-dosen', [SintaController::class, 'getAllDosen']);
