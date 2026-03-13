@@ -150,7 +150,7 @@ class SintaController extends Controller
                 if ($doc['source'] == 'ipr') {
                     // Simpan ke tabel IPR
                     \App\Models\Ipr::updateOrCreate(
-                        ['title' => $doc['title'], 'sinta_id' => $id],
+                        [   'title' => $doc['title'], 'sinta_id' => $id],
                         [
                             'inventor' => $doc['inventor'] ?? '-', 
                             'category' => $doc['type'] ?? 'HKI',
