@@ -61,12 +61,25 @@ class SimakerController extends Controller
     // Tambahkan di SimakerController.php
     public function iprList()
     {
-        // Cukup panggil Ipr:: karena sudah di-import di atas
-        $iprs = Ipr::join('dosen', 'iprs.sinta_id', '=', 'dosen.Sinta_ID')
-                ->select('iprs.*', 'dosen.Nama as nama_dosen')
-                ->orderBy('year', 'desc')
+        // Gunakan leftJoin agar data PRODI tetap muncul
+        $iprs = Ipr::leftJoin('dosen', 'iprs.sinta_id', '=', 'dosen.Sinta_ID')
+                ->select(
+                    'iprs.*', 
+                    'dosen.Nama as nama_dosen'
+                )
+                ->orderBy('iprs.created_at', 'desc')
                 ->get();
 
         return view('ipr-list', compact('iprs'));
+    }
+
+    // Di SimakerController.php
+    public function cariHki() {
+        return view('cari-hki'); // Halaman form pencarian
+    }
+
+    public function scrapeHkiProdi(Request $request) {
+        $deptId = $request->id;
+        // Panggil script python dengan parameter ID Departemen
     }
 }
