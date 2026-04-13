@@ -13,9 +13,9 @@
         "guzzlehttp/guzzle": "^7.10",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
+        "maatwebsite/excel": "^3.1",
         "symfony/css-selector": "^7.4",
-        "symfony/dom-crawler": "^7.4",
-        "maatwebsite/excel": "^3.1"
+        "symfony/dom-crawler": "^7.4"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

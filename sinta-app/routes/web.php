@@ -23,12 +23,12 @@ Route::get('/daftar-dosen', [DosenController::class, 'index'])->name('daftar-dos
 Route::get('/simaker', [SimakerController::class, 'index'])->name('simaker.index');
 Route::get('/ipr-list', [SimakerController::class, 'iprList'])->name('ipr.list');
 
-// Route baru untuk menampilkan halaman hki.blade.php
+// Route menampilkan halaman hki.blade.php
 Route::get('/hki', function () {
     return view('hki');
 })->name('hki.index');
 
-// Tambahkan Route Halaman Baru di sini
+// Route menampilkan halaman publications.blade.php
 Route::get('/publications', function () {
     return view('publications');
 })->name('publications.index');
@@ -39,10 +39,13 @@ Route::prefix('api/sinta')->group(function () {
     Route::get('/scrape', [SintaController::class, 'scrape']);
     Route::get('/profile/{id}', [SintaController::class, 'getProfile']);
     Route::get('/publications/{id}/{source?}', [SintaController::class, 'getPublications']);
-    Route::get('/export-excel', [SintaController::class, 'exportExcel']);
+    
+    // Route Export Excel All (Tanpa Filter)
+    Route::get('/export-excel-all', [SintaController::class, 'exportExcelAll'])->name('publications.export_all');
+    
     Route::get('/export-excel-single', [SintaController::class, 'exportExcelSingle']);
     
-    // API baru untuk proses scrape HKI berdasarkan ID Departemen
+    // API proses scrape HKI berdasarkan ID Departemen
     Route::get('/scrape-hki-prodi', [SintaController::class, 'scrapeHkiProdi']);
     
     // Autocomplete endpoint untuk search (beranda page)
@@ -76,7 +79,7 @@ Route::prefix('api/publications')->group(function () {
     });
 });
 
-// API tambahan untuk mengambil data IPR secara JSON jika diperlukan di frontend
+// API tambahan untuk mengambil data IPR secara JSON
 Route::prefix('api/iprs')->group(function () {
     Route::get('/all', function() {
         $data = \App\Models\Ipr::join('dosen', 'iprs.sinta_id', '=', 'dosen.Sinta_ID')
@@ -86,3 +89,8 @@ Route::prefix('api/iprs')->group(function () {
         return response()->json(['success' => true, 'data' => $data]);
     });
 });
+
+// ===== API SIMAKER (EXPORT) =====
+Route::get('/simaker/export', [SimakerController::class, 'exportExcel'])->name('simaker.export');
+
+Route::get('/ipr-list/export', [SimakerController::class, 'exportIprExcel'])->name('ipr.export');

@@ -60,40 +60,40 @@
         <h3 class="card-title">Data Publikasi Terkumpul</h3>
         
         <div class="download-box">
-            <button class="btn btn-success" onclick="openExportModal()">📥 Download Excel</button>
-        </div>
-</div>
-
-<div id="customExportModal" class="modal">
-    <div class="modal-content" style="max-width: 400px;">
-        <div class="modal-header">
-            <h3 class="modal-title">Pilih Periode Laporan</h3>
-            <button class="modal-close" onclick="closeExportModal()">×</button>
-        </div>
-        <div class="modal-body">
-            <div class="form-group">
-                <label class="form-label">Bulan</label>
-                <select id="selMonth" class="form-control">
-                    @foreach(range(1, 12) as $m)
-                        <option value="{{ $m }}">{{ date('F', mktime(0, 0, 0, $m, 1)) }}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="form-group" style="margin-top: 15px;">
-                <label class="form-label">Tahun</label>
-                <select id="selYear" class="form-control">
-                    @for($y = date('Y'); $y >= 2020; $y--)
-                        <option value="{{ $y }}">{{ $y }}</option>
-                    @endfor
-                </select>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-secondary" onclick="closeExportModal()">Batal</button>
-            <button class="btn btn-success" onclick="exportData()">Mulai Unduh</button>
+            <button class="btn btn-success" onclick="downloadSemua()">📥 Download Excel</button>
         </div>
     </div>
-</div>
+
+    <div id="customExportModal" class="modal">
+        <div class="modal-content" style="max-width: 400px;">
+            <div class="modal-header">
+                <h3 class="modal-title">Pilih Periode Laporan</h3>
+                <button class="modal-close" onclick="closeExportModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Bulan</label>
+                    <select id="selMonth" class="form-control">
+                        @foreach(range(1, 12) as $m)
+                            <option value="{{ $m }}">{{ date('F', mktime(0, 0, 0, $m, 1)) }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group" style="margin-top: 15px;">
+                    <label class="form-label">Tahun</label>
+                    <select id="selYear" class="form-control">
+                        @for($y = date('Y'); $y >= 2020; $y--)
+                            <option value="{{ $y }}">{{ $y }}</option>
+                        @endfor
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeExportModal()">Batal</button>
+                <button class="btn btn-success" onclick="exportData()">Mulai Unduh</button>
+            </div>
+        </div>
+    </div>
 
     <div style="margin-top: 20px;">
         <table class="table">
@@ -107,18 +107,22 @@
                 </tr>
             </thead>
             <tbody id="pubTableBody">
-                </tbody>
+            </tbody>
         </table>
     </div>
 </div>
 
 <script>
-    // Fungsi untuk membuka modal
+    // Fungsi baru untuk download langsung semua data
+    function downloadSemua() {
+        window.location.href = "{{ route('publications.export_all') }}";
+    }
+
+    // Fungsi modal tetap dipertahankan (tidak dihapus)
     function openExportModal() {
         document.getElementById('customExportModal').classList.add('show');
     }
 
-    // Fungsi untuk menutup modal
     function closeExportModal() {
         document.getElementById('customExportModal').classList.remove('show');
     }
@@ -139,13 +143,11 @@
         `).join('');
     }
 
-    // Fungsi export yang dipanggil dari dalam modal
+    // Fungsi export modal tetap dipertahankan
     function exportData() {
         const m = document.getElementById('selMonth').value;
         const y = document.getElementById('selYear').value;
-         
         closeExportModal();
-        
         window.location.href = `/api/sinta/export-excel?month=${m}&year=${y}`;
     }
 

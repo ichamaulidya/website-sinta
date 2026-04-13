@@ -81,26 +81,32 @@ class SintaController extends Controller
         }
     }
 
-    public function exportExcel(Request $request)
+    //public function exportExcel(Request $request)
+    //{
+        //$year = $request->query('year', now()->year);
+        //$month = $request->query('month', now()->month);
+        
+        //$fileName = "Laporan_Publikasi_SINTA_{$year}_{$month}.xlsx";
+        
+        //return Excel::download(new PublicationsExport($year, $month), $fileName);
+    //}
+
+    public function exportExcelAll()
     {
-        $year = $request->query('year', now()->year);
-        $month = $request->query('month', now()->month);
-        
-        $fileName = "Laporan_Publikasi_SINTA_{$year}_{$month}.xlsx";
-        
-        return Excel::download(new PublicationsExport($year, $month), $fileName);
+        $fileName = "Laporan_Data_Publikasi_BRAVO_" . date('Ymd_His') . ".xlsx";
+        return \Maatwebsite\Excel\Facades\Excel::download(new \App\Exports\PublicationsExport, $fileName);
     }
 
-    public function exportExcelSingle(Request $request)
-    {
-        $id = $request->query('id');
+    //public function exportExcelSingle(Request $request)
+    //{
+        //$id = $request->query('id');
     
         // Nama file berdasarkan ID SINTA agar unik
-        $fileName = "Data_Publikasi_{$id}.xlsx";
+        //$fileName = "Data_Publikasi_{$id}.xlsx";
     
         // Kita gunakan class export yang sama, tapi kirim ID SINTA
-        return Excel::download(new \App\Exports\PublicationsExport($id, null, true), $fileName);
-    }
+        //return Excel::download(new \App\Exports\PublicationsExport($id, null, true), $fileName);
+    //}
 
     /**
      * Scrape data SINTA by ID using Python script
@@ -651,6 +657,7 @@ class SintaController extends Controller
     {
         set_time_limit(1000);
         $id = $request->query('id');
+        $namaProdi = $request->query('nama_prodi');
 
         if (!$id) {
             return response()->json(['success' => false, 'error' => 'ID Prodi tidak ditemukan'], 400);
@@ -681,6 +688,8 @@ class SintaController extends Controller
                         'sinta_id' => 'PRODI-' . $id // Prefix agar tahu ini data level prodi
                     ],
                     [
+                        'nama_prodi' => $namaProdi,
+                        'inventor' => $doc['inventor'] ?? '-', // DITAMBAHKAN AGAR NAMA DOSEN TERSIMPAN
                         'category' => $doc['type'] ?? 'HKI',
                         'year'     => $doc['year'] ?? date('Y'),
                         'link'     => $doc['link'] ?? null,
