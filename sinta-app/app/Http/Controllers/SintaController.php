@@ -29,7 +29,7 @@ class SintaController extends Controller
     {
         $this->client = new Client([
             'verify' => false,
-            'timeout' => 300,
+            'timeout' => 1000,
             'allow_redirects' => true,
             'headers' => [
                 'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
@@ -107,7 +107,7 @@ class SintaController extends Controller
      */
     public function scrape(Request $request)
     {
-        set_time_limit(300);
+        set_time_limit(1000);
         $id = $request->query('id');
 
         if (!$id) {
@@ -649,7 +649,7 @@ class SintaController extends Controller
      */
     public function scrapeHkiProdi(Request $request)
     {
-        set_time_limit(300);
+        set_time_limit(1000);
         $id = $request->query('id');
 
         if (!$id) {
