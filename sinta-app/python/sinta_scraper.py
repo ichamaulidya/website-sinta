@@ -13,10 +13,10 @@ CATEGORIES = ['scopus', 'garuda', 'wos', 'ipr']
 def get_soup(url):
     headers = {
         # Ambil bagian Cookie-nya saja
-        'Cookie': '_ga=GA1.1.2145658494.1770084967; _ga_YZBSYK71LL=GS2.1.s1771899418$o3$g1$t1771904566$j60$l0$h0; ci_session=ur9h3t9rniu4vhm1j0puqeleo33b0eus',
+        'Cookie': '_ga=GA1.1.2145658494.1770084967; _ga_YZBSYK71LL=GS2.1.s1771899418$o3$g1$t1771904566$j60$l0$h0; ci_session=7opi34hf3lis4a2k7m19gc1j3ng9dufp',
         
         # User-Agent disesuaikan dengan yang kamu kirim tadi
-        'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Mobile Safari/537.36',
+        'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Mobile Safari/537.36',
         
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
         'Referer': 'https://sinta.kemdiktisaintek.go.id',

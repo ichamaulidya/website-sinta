@@ -3,58 +3,110 @@
 namespace App\Exports;
 
 use App\Models\Publication;
-use Maatwebsite\Excel\Concerns\FromQuery;
+use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
+use Maatwebsite\Excel\Concerns\WithStyles;
+use Maatwebsite\Excel\Concerns\WithColumnWidths;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class PublicationsExport implements FromQuery, WithHeadings, WithMapping
+class PublicationsExport implements FromCollection, WithHeadings, WithMapping, WithStyles, WithColumnWidths
 {
-    protected $year, $month;
+    private $lastDosenName = '';
 
-    // Menangkap filter bulan dan tahun dari Controller
-    public function __construct($year, $month) {
-        $this->year = $year;
-        $this->month = $month;
-    }
-
-    /**
-     * Query data publikasi dan Join dengan tabel dosen untuk ambil Nama
-     */
-    public function query() {
-        return Publication::query()
-            ->join('dosen', 'publications.sinta_id', '=', 'dosen.Sinta_ID')
+    public function collection()
+    {
+        // Tetap diurutkan berdasarkan nama dosen agar grouping rapi
+        return Publication::join('dosen', 'publications.sinta_id', '=', 'dosen.Sinta_ID')
             ->select('publications.*', 'dosen.Nama as nama_dosen')
-            ->whereYear('publications.created_at', $this->year)
-            ->whereMonth('publications.created_at', $this->month);
+            ->orderBy('dosen.Nama', 'asc')
+            ->orderBy('publications.year', 'desc')
+            ->get();
     }
 
     /**
-     * Header kolom di Excel
+     * Header Excel (Kolom Tgl Scrape dihapus)
      */
-    public function headings(): array {
+    public function headings(): array
+    {
         return [
-            "Nama Dosen", 
-            "Sumber", 
-            "Judul Publikasi", 
-            "Jurnal/Penerbit", 
-            "Tahun Terbit", 
-            "Sitasi", 
-            "Kategori/Quartile"
+            'Nama Dosen',
+            'Judul Publikasi',
+            'Sumber',
+            'Jurnal',
+            'Tahun',
+            'Sitasi',
+            'Tipe/Ranking',
         ];
     }
 
     /**
-     * Mapping data agar urutannya pas dengan header
+     * Mapping data
      */
-    public function map($pub): array {
+    public function map($pub): array
+    {
+        // Logika Grouping Nama Dosen
+        $currentDosen = $pub->nama_dosen;
+        $displayDosen = ($currentDosen === $this->lastDosenName) ? '' : $currentDosen;
+        $this->lastDosenName = $currentDosen;
+
+        // Logika hapus kata "accred" pada bagian Tipe/Ranking
+        // Contoh: "S2 Accredited" atau "accred S2" jadi "S2" saja
+        $cleanType = str_ireplace(['accredited', 'accred', ':' ,' '], ['', '', ' '], $pub->type ?? '-');
+        $cleanType = trim($cleanType);
+
         return [
-            $pub->nama_dosen,
-            strtoupper($pub->source),
+            $displayDosen,
             $pub->title,
+            strtoupper($pub->source),
             $pub->journal ?? '-',
             $pub->year,
             $pub->cited,
-            $pub->type ?? '-'
+            $cleanType, // Hasil yang sudah bersih dari kata accred
+        ];
+    }
+
+    /**
+     * Pengaturan Lebar Kolom
+     */
+    public function columnWidths(): array
+    {
+        return [
+            'A' => 35, // Nama Dosen
+            'B' => 65, // Judul
+            'C' => 12, // Sumber
+            'D' => 35, // Jurnal
+            'E' => 10, // Tahun
+            'F' => 10, // Sitasi
+            'G' => 15, // Tipe/Ranking
+        ];
+    }
+
+    /**
+     * Styling Excel
+     */
+    public function styles(Worksheet $sheet)
+    {
+        return [
+            // Style Header
+            1 => [
+                'font' => ['bold' => true, 'color' => ['rgb' => 'FFFFFF']],
+                'fill' => [
+                    'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                    'startColor' => ['rgb' => '2E75B6']
+                ],
+                'alignment' => [
+                    'horizontal' => 'center',
+                    'vertical' => 'center'
+                ]
+            ],
+            // Alignment data
+            'B' => ['alignment' => ['wrapText' => true, 'vertical' => 'top']],
+            'A' => ['font' => ['bold' => true], 'alignment' => ['vertical' => 'top']],
+            'C' => ['alignment' => ['horizontal' => 'center']],
+            'E' => ['alignment' => ['horizontal' => 'center']],
+            'F' => ['alignment' => ['horizontal' => 'center']],
+            'G' => ['alignment' => ['horizontal' => 'center']],
         ];
     }
 }

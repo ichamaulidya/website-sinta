@@ -3,9 +3,12 @@
 
 @section('content')
 <div class="card">
-    <h3 class="card-title" style="background: #c026d3; color: white; padding: 15px; margin: -20px -20px 20px -20px; border-radius: 8px 8px 0 0;">
-        INDIKATOR KINERJA (SIMAKER)
-    </h3>
+    <div class="card-title" style="background: #c026d3; color: white; padding: 15px; margin: -20px -20px 20px -20px; border-radius: 8px 8px 0 0; display: flex; justify-content: space-between; align-items: center;">
+        <span style="font-weight: bold;">INDIKATOR KINERJA (SIMAKER)</span>
+        <a href="{{ route('simaker.export') }}" class="btn" style="background: white; color: #c026d3; font-weight: bold; text-decoration: none; padding: 8px 15px; border-radius: 6px; font-size: 0.875rem;">
+            📥 Download Excel
+        </a>
+    </div>
     
     <table class="table">
         <thead>

@@ -105,7 +105,8 @@ async function searchHkiProdi() {
     btn.disabled = true;
 
     try {
-        const res = await fetch(`/api/sinta/scrape-hki-prodi?id=${prodiId}`);
+        // PERUBAHAN: Menambahkan parameter nama_prodi agar tersimpan di database
+        const res = await fetch(`/api/sinta/scrape-hki-prodi?id=${prodiId}&nama_prodi=${encodeURIComponent(prodiText)}`);
         const json = await res.json();
 
         if (!json.success) throw new Error(json.error || 'Gagal mengambil data');

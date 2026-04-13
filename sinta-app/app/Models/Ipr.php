@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class Ipr extends Model
 {
     // Tambahkan ini di sini
-    protected $fillable = ['sinta_id', 'title', 'inventor', 'category', 'year', 'link'];
+    protected $fillable = ['sinta_id', 'nama_prodi', 'title', 'inventor', 'category', 'year', 'link'];
 }
