@@ -18,7 +18,7 @@ class SimakerController extends Controller
         $tahunSekarang = date('Y');
 
         // 1. Rasio Scopus (IKU 6)
-        $jmlScopus = Publication::where('source', 'scopus')->count();
+        $jmlScopus = Publication::whereIn('source', ['scopus', 'wos'])->count();
         $iku6 = $jmlScopus / $totalDosen;
 
         // 2. Persentase Q1
